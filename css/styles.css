@@ -1,0 +1,164 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+.u-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header styles */
+.u-header {
+    background-color: #f4f4f4;
+    padding: 1rem 0;
+}
+
+.u-header .u-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.u-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+
+.u-nav {
+    display: flex;
+    list-style: none;
+}
+
+.u-nav li {
+    margin-left: 20px;
+}
+
+.u-nav a {
+    text-decoration: none;
+    color: #333;
+}
+
+/* Hero section styles */
+.u-hero {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1200/600');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    padding: 100px 0;
+}
+
+.u-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.u-hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.u-cta-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.u-cta-button {
+    display: inline-block;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.u-cta-button:hover {
+    background-color: #555;
+}
+
+/* Gallery section styles */
+.u-gallery {
+    padding: 50px 0;
+    background-color: #f9f9f9;
+}
+
+.u-gallery h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.u-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.u-gallery-item {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.u-gallery-item img {
+    width: 100%;
+    height: auto;
+}
+
+.u-gallery-item h3 {
+    padding: 10px;
+    text-align: center;
+}
+
+/* About section styles */
+.u-about {
+    padding: 50px 0;
+}
+
+.u-about h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.u-about p {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Footer styles */
+.u-footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .u-container {
+        width: 90%;
+    }
+
+    .u-hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .u-gallery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
