@@ -1,20 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>MrPretendo - Portafolio</title>
+            
+            <!-- Preload CSS -->
+            <link rel="preload" href="css/styles.css" as="style">
+            <link rel="stylesheet" href="css/styles.css">
+            
+            <!-- Preload fonts -->
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Arial&display=swap">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arial&display=swap">
+            
+            <!-- Preload JavaScript -->
+            <link rel="preload" href="js/script.js" as="script">
+        </head>
 <body>
     <header class="u-header">
         <div class="u-container">
+            <a href="#" class="u-logo">MrPretendo</a>
             <nav>
-                <a href="#" class="u-logo">MyPortfolio</a>
                 <ul class="u-nav">
                     <li><a href="#home">Inicio</a></li>
                     <li><a href="#gallery">Galeria</a></li>
-                    <li><a href="#about">Acerca de</a></li>
+                    <li><a href="stories.html">Textos</a></li>
+                    <li><a href="about.html">Acerca de</a></li>
                 </ul>
             </nav>
         </div>
@@ -26,48 +40,97 @@
                 <h1>MrPretendo</h1>
                 <p>Portafolio gráfico y edición de texto</p>
                 <div class="u-cta-container">
-                    <a href="#gallery" class="u-cta-button">Sobre mí</a>
-                    <a href="#about" class="u-cta-button">Textos</a>
+                    <a href="about.html" class="u-cta-button">Sobre mí</a>
+                    <a href="stories.html" class="u-cta-button">Textos</a>
                 </div>
             </div>
         </section>
 
         <section id="gallery" class="u-gallery">
             <div class="u-container">
-                <h2>Gallery</h2>
+                <h2>Galeria</h2>
                 <div class="u-gallery-grid">
                     <div class="u-gallery-item">
-                        <img src="/api/placeholder/400/300" alt="Project 1">
-                        <h3>Project 1</h3>
+                        <div class="image-container">
+                            <img src="img/ANDfuneral.jpg" alt="Project 1">
+                        </div>
+                        <h3>Titulo</h3>
+                        <h4>descripción</h4>
+                        <h6>Fecha</h6>
                     </div>
                     <div class="u-gallery-item">
-                        <img src="/api/placeholder/400/300" alt="Project 2">
-                        <h3>Project 2</h3>
+                        <div class="image-container">
+                            <img src="img/165416516543.jpg" alt="Project 2">
+                        </div>
+                        <h3>Titulo</h3>
+                        <h4>descripción</h4>
+                        <h6>Fecha</h6>
                     </div>
                     <div class="u-gallery-item">
-                        <img src="/api/placeholder/400/300" alt="Project 3">
-                        <h3>Project 3</h3>
+                        <div class="image-container">
+                            <img src="img/Sofía Pizza Hot.png" alt="Project 3">
+                        </div>
+                        <h3>Titulo</h3>
+                        <h4>descripción</h4>
+                        <h6>Fecha</h6>
                     </div>
                     <div class="u-gallery-item">
-                        <img src="/api/placeholder/400/300" alt="Project 4">
-                        <h3>Project 4</h3>
+                        <div class="image-container">
+                            <img src="img/51548065.jpg" alt="Project 4">
+                        </div>
+                        <h3>Titulo</h3>
+                        <h4>descripción</h4>
+                        <h6>Fecha</h6>
                     </div>
-                </div>
-            </div>
-        </section>
+                    <div class="u-gallery-item">
+                        <div class="image-container">
+                            <img src="img/51548065.jpg" alt="Project 4">
+                        </div>
+                        <h3>Titulo</h3>
+                        <h4>descripción</h4>
+                        <h6>Fecha</h6>
+                    </div>
+                    <div class="u-gallery-item">
+                        <div class="image-container">
+                            <img src="img/51548065.jpg" alt="Project 4">
+                        </div>
+                        <h3>Titulo</h3>
+                        <h4>descripción</h4>
+                        <h6>Fecha</h6>
+                    </div>
+                    <div class="u-gallery-item">
+                        <div class="image-container">
+                            <img src="img/51548065.jpg" alt="Project 4">
+                        </div>
+                        <h3>Titulo</h3>
+                        <h4>descripción</h4>
+                        <h6>Fecha</h6>
+                    </div>
+                    <div class="u-gallery-item">
+                        <div class="image-container">
+                            <img src="img/51548065.jpg" alt="Project 4">
+                        </div>
+                        <h3>Titulo</h3>
+                        <h4>descripción</h4>
+                        <h6>Fecha</h6>
+                    </div>
 
-        <section id="about" class="u-about">
-            <div class="u-container">
-                <h2>About Me</h2>
-                <p>I am a creative professional passionate about design and innovation. With years of experience in various projects, I strive to deliver high-quality work that exceeds expectations.</p>
+                </div>
             </div>
         </section>
     </main>
 
     <footer class="u-footer">
         <div class="u-container">
-            <p>&copy; 2024 MyPortfolio. All rights reserved.</p>
+            <p>&copy; 2024 MrPretendo. All rights reserved.</p>
         </div>
     </footer>
+
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
