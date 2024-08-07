@@ -88,7 +88,13 @@ function setupMenuButton() {
     const dropdownMenu = document.getElementById('dropdown-menu');
 
     menuButton.addEventListener('click', function() {
-        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+        if (dropdownMenu.style.display === 'block') {
+            dropdownMenu.style.display = 'none';
+            menuButton.classList.remove('menu-open');
+        } else {
+            dropdownMenu.style.display = 'block';
+            menuButton.classList.add('menu-open');
+        }
     });
 
     document.querySelectorAll('.dropdown-item').forEach(item => {
@@ -98,6 +104,9 @@ function setupMenuButton() {
             if (section) {
                 e.preventDefault();
                 document.getElementById('gallery-link').click();
+            }else if (!menuButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.style.display = 'none';
+                menuButton.classList.remove('menu-open');
             }
         });
     });
@@ -257,6 +266,7 @@ function addEventListeners() {
 }
 
 // Inicializar la aplicación cuando se carga el DOM
+document.addEventListener('DOMContentLoaded', setupMenuButton);
 document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
     setupMenuButton(); // Configurar eventos del botón del menú

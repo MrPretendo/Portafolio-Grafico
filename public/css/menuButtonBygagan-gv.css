@@ -10,14 +10,15 @@
   font-weight: 600;
   display: flex;
   align-items: center;
-  background: #040f16;
-  color: #f5f5f5;
-  position: relative; /* Agregado para que la posición absoluta de .icon funcione */
+  background: #007bff;
+  color: #ffffff;
+  position: relative;
   cursor: pointer;
 }
 
-.btn:hover {
-  box-shadow: 0 0 20px 0px #2e2e2e3a;
+.btn:hover, .btn.menu-open {
+  background: #0056b3;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
 }
 
 .btn .icon {
@@ -34,11 +35,11 @@
   transform: translateX(55px);
 }
 
-.btn:hover .icon {
+.btn:hover .icon, .btn.menu-open .icon {
   width: 175px;
 }
 
-.btn:hover .text {
+.btn:hover .text, .btn.menu-open .text {
   transition: all 0.5s;
   opacity: 0;
 }
@@ -54,30 +55,33 @@
 .dropdown-menu {
   display: none;
   position: absolute;
-  background: #040f16;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background: #ffffff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   border-radius: 5px;
   overflow: hidden;
   margin-top: 10px;
   min-width: 150px;
+  border: 1px solid #007bff;
 }
 
 .dropdown-menu .dropdown-item {
   padding: 10px 15px;
-  color: #f5f5f5;
+  color: #007bff;
   text-decoration: none;
   display: block;
 }
 
 .dropdown-menu .dropdown-item:hover {
-  background-color: #333;
+  background-color: #f0f8ff;
+  color: #0056b3;
 }
 
 #dark-mode-toggle-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-top: 1px solid #e0e0e0;
 }
 
 #theme-toggle-button {
@@ -105,6 +109,34 @@
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 0.25s;
+}
+
+/* Estilos para el modo oscuro */
+.dark-mode .btn {
+  background: #040f16;
+  color: #f5f5f5;
+}
+
+.dark-mode .btn:hover, .dark-mode .btn.menu-open {
+  background: #007bff;
+  color: #ffffff;
+}
+
+.dark-mode .dropdown-menu {
+  background: #040f16;
+  border: none;
+}
+
+.dark-mode .dropdown-menu .dropdown-item {
+  color: #f5f5f5;
+}
+
+.dark-mode .dropdown-menu .dropdown-item:hover {
+  background-color: #333;
+}
+
+.dark-mode #dark-mode-toggle-container {
+  border-top-color: #333;
 }
 
 /* night sky background */
