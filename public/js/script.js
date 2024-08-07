@@ -11,13 +11,15 @@ const modalLongDescription = document.getElementById('modal-long-description');
 const modalDate = document.getElementById('modal-date');
 const closeBtn = document.getElementsByClassName('close')[0];
 
-// Efecto de scroll en la barra de navegación
-window.addEventListener('scroll', function() {
-    const header = document.querySelector('.u-header');
-    header.classList.toggle('scrolled', window.scrollY > 50);
-});
+// Función principal de inicialización
+function initializeApp() {
+    loadDarkModeToggle();
+    handlePageTransition();
+    loadGalleryData();
+    addEventListeners();
+}
 
-// Función para cargar el toggle de modo oscuro
+// Cargar el toggle de modo oscuro
 function loadDarkModeToggle() {
     fetch('darkmode.html')
         .then(response => response.text())
@@ -25,31 +27,19 @@ function loadDarkModeToggle() {
             const parser = new DOMParser();
             const doc = parser.parseFromString(data, 'text/html');
             const toggleContainer = doc.getElementById('theme-toggle-button');
-            
             document.getElementById('dark-mode-toggle-container').appendChild(toggleContainer);
-            
-            // Inicializar la funcionalidad del modo oscuro después de cargar el toggle
             initDarkMode();
         })
         .catch(error => console.error('Error loading dark mode toggle:', error));
 }
 
-// Llamar a la función cuando se carga el DOM
-document.addEventListener('DOMContentLoaded', loadDarkModeToggle);
-
-
 // Inicializar la funcionalidad de modo oscuro
-// Función para inicializar el modo oscuro (asegúrate de que esta función exista)
 function initDarkMode() {
     const toggle = document.getElementById('toggle');
-    
-    // Comprobar si el modo oscuro está guardado en localStorage
     if (localStorage.getItem('darkMode') === 'enabled') {
         document.body.classList.add('dark-mode');
         toggle.checked = true;
     }
-
-    // Manejar el cambio de modo
     toggle.addEventListener('change', function() {
         if (this.checked) {
             document.body.classList.add('dark-mode');
@@ -61,20 +51,79 @@ function initDarkMode() {
     });
 }
 
-// Call initDarkMode when the DOM is loaded
-document.addEventListener('DOMContentLoaded', initDarkMode);
+// Manejar la transición entre la página principal y la galería
+function handlePageTransition() {
+    const homeSection = document.getElementById('home');
+    const gallerySection = document.getElementById('gallery');
+    const galleryLink = document.getElementById('gallery-link');
+    const homeLink = document.querySelector('.u-logo');
+    const heroGalleryLink = document.querySelector('.u-hero .u-cta-container .u-cta-button#gallery-link');
+
+    galleryLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        homeSection.classList.add('fade-out');
+        setTimeout(() => {
+            homeSection.style.display = 'none';
+            homeSection.classList.remove('fade-out');
+            gallerySection.style.display = 'block';
+            gallerySection.classList.add('fade-in');
+            setTimeout(() => {
+                gallerySection.classList.remove('fade-in');
+            }, 500);
+        }, 500);
+    });
+
+    heroGalleryLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        homeSection.classList.add('fade-out');
+        setTimeout(() => {
+            homeSection.style.display = 'none';
+            homeSection.classList.remove('fade-out');
+            gallerySection.style.display = 'block';
+            gallerySection.classList.add('fade-in');
+            setTimeout(() => {
+                gallerySection.classList.remove('fade-in');
+            }, 500);
+        }, 500);
+    });
+
+    homeLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        gallerySection.classList.add('fade-out');
+        setTimeout(() => {
+            gallerySection.style.display = 'none';
+            gallerySection.classList.remove('fade-out');
+            homeSection.style.display = 'flex';
+            homeSection.classList.add('fade-in');
+            setTimeout(() => {
+                homeSection.classList.remove('fade-in');
+            }, 500);
+        }, 500);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    handlePageTransition();
+});
+
+
+
+
 
 
 // Cargar datos de la galería
-fetch('gallery-data.json')
-    .then(response => response.json())
-    .then(data => {
-        galleryData = data.images;
-        populateProjectSelect();
-        renderGallery(galleryData);
-    })
-    .catch(error => console.error('Error loading gallery data:', error));
+function loadGalleryData() {
+    fetch('gallery-data.json')
+        .then(response => response.json())
+        .then(data => {
+            galleryData = data.images;
+            populateProjectSelect();
+            renderGallery(galleryData);
+        })
+        .catch(error => console.error('Error loading gallery data:', error));
+}
 
+// Poblar el select de proyectos
 function populateProjectSelect() {
     const projects = [...new Set(galleryData.map(img => img.project))].sort();
     projectSelect.innerHTML = '<option value="all">Todos los proyectos</option>';
@@ -83,6 +132,7 @@ function populateProjectSelect() {
     });
 }
 
+// Renderizar la galería
 function renderGallery(images) {
     galleryGrid.innerHTML = '';
     images.forEach(image => {
@@ -100,6 +150,7 @@ function renderGallery(images) {
     addImageClickListeners();
 }
 
+// Agregar event listeners a las imágenes
 function addImageClickListeners() {
     document.querySelectorAll('.image-container img').forEach(img => {
         img.onclick = function() {
@@ -109,6 +160,7 @@ function addImageClickListeners() {
     });
 }
 
+// Ordenar y filtrar imágenes
 function sortImages() {
     const sortBy = sortSelect.value;
     const projectFilter = projectSelect.value;
@@ -137,6 +189,7 @@ function sortImages() {
     renderGallery(sortedImages);
 }
 
+// Abrir modal
 function openModal(image) {
     modal.style.display = "block";
     modalImg.src = image.fullImage;
@@ -147,6 +200,7 @@ function openModal(image) {
     modalDate.textContent = `${image.date} - ${image.project}`;
 }
 
+// Redimensionar imagen en el modal
 function resizeImage() {
     const containerWidth = modalImg.parentElement.offsetWidth;
     const containerHeight = modalImg.parentElement.offsetHeight;
@@ -162,34 +216,43 @@ function resizeImage() {
     }
 }
 
-closeBtn.onclick = function() {
-    modal.style.display = "none";
-}
+// Agregar event listeners
+function addEventListeners() {
+    // Efecto de scroll en la barra de navegación
+    window.addEventListener('scroll', function() {
+        const header = document.querySelector('.u-header');
+        header.classList.toggle('scrolled', window.scrollY > 50);
+    });
 
-window.onclick = function(event) {
-    if (event.target == modal) {
+    // Cerrar modal
+    closeBtn.onclick = function() {
         modal.style.display = "none";
     }
-}
 
-window.addEventListener('resize', resizeImage);
+    // Cerrar modal al hacer clic fuera de él
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 
-// Event listeners para ordenación y filtrado
-sortSelect.addEventListener('change', sortImages);
-projectSelect.addEventListener('change', sortImages);
+    // Redimensionar imagen al cambiar el tamaño de la ventana
+    window.addEventListener('resize', resizeImage);
 
-// Desplazamiento suave para los enlaces de navegación
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
+    // Event listeners para ordenación y filtrado
+    sortSelect.addEventListener('change', sortImages);
+    projectSelect.addEventListener('change', sortImages);
+
+    // Desplazamiento suave para los enlaces de navegación
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
         });
     });
-});
+}
 
-// Inicializar la galería con la ordenación predeterminada
-window.addEventListener('DOMContentLoaded', (event) => {
-    sortSelect.value = 'default';
-    sortImages();
-});
+// Inicializar la aplicación cuando se carga el DOM
+document.addEventListener('DOMContentLoaded', initializeApp);

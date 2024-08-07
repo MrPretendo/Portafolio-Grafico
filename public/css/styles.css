@@ -18,7 +18,14 @@
     --modal-info-bg: #1a1a1a;
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
 body {
+    display: flex;
+    flex-direction: column;
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: background-color 0.3s, color 0.3s;
@@ -177,14 +184,19 @@ body {
 
 /* Ajuste del contenido principal */
 main {
-    padding-top: 80px;
+    flex: 1 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: center; /* Asegura que el contenido esté centrado verticalmente */
+    min-height: calc(100vh - 80px); /* Altura de la ventana menos la altura del encabezado */
 }
 
 /* Estilos de la sección hero */
 .u-hero {
+    min-height: calc(100vh - 80px); /* Asegura que la sección hero ocupe al menos la altura de la ventana menos la altura del encabezado */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/600');
     background-size: cover;
     background-position: center;
@@ -227,6 +239,7 @@ main {
     background-color: #0056b3;
     transform: translateY(-3px);
 }
+
 
 /* Estilos de la sección de galería */
 .u-gallery {
@@ -396,16 +409,40 @@ main {
 
 /* Estilos del pie de página */
 .u-footer {
+    flex-shrink: 0;
     background-color: var(--header-bg);
     color: var(--text-color);
     text-align: center;
     padding: 20px 0;
-    width: 100%;
 }
 
-/* ... (estilos anteriores) ... */
+/* Animaciones */
+.fade-out {
+    animation: fadeOut 0.5s forwards;
+}
 
-/* Estilos responsivos */
+.fade-in {
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 @media (max-width: 714px) {
     .u-container {
         width: 95%;
@@ -461,7 +498,16 @@ main {
         height: 50%;
         overflow-y: auto;
     }
-}
+        .gallery-controls {
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .gallery-controls select {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    }
 
 @media (max-width: 480px) {
     .u-hero h1 {
@@ -474,5 +520,13 @@ main {
 
     .u-gallery-grid {
         grid-template-columns: 1fr;
+    }
+    .gallery-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    .gallery-controls select {
+        width: 100%;
+        margin-bottom: 10px;
     }
 }

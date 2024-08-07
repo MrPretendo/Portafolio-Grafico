@@ -8,7 +8,6 @@
     <link rel="preload" href="js/script.js" as="script">
     <link rel="preload" href="gallery-data.json" as="fetch" crossorigin="anonymous">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Aptos&display=swap" as="style">
-    
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -17,32 +16,33 @@
             <a href="index.html" class="u-logo">MrPretendo</a>
             <nav>
                 <ul class="u-nav">
-                    <li><a href="#gallery">Galeria</a></li>
+                    <li><a href="#" id="gallery-link">Galeria</a></li>
                     <li><a href="stories.html">Historias</a></li>
                     <li><a href="about.html">Acerca de</a></li>
-                    <li id="dark-mode-toggle-container">
-                        <!-- El contenido del toggle se cargará aquí dinámicamente -->
-                    </li>
+                    <li id="dark-mode-toggle-container"></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <main role="main">
-        <section id="home" class="section u-hero">
+    <main>
+        <section id="home" class="u-hero">
             <div class="u-container">
-                <h1>MrPretendo</h1>
-                <p>Portafolio gráfico y edición de texto</p>
-                <div class="u-cta-container">
-                    <a href="about.html" class="u-cta-button">Sobre mí</a>
-                    <a href="stories.html" class="u-cta-button">Historias</a>
+                <div class="u-hero-content">
+                    <h1>MrPretendo</h1>
+                    <p>Portafolio gráfico y edición de texto</p>
+                    <div class="u-cta-container">
+                        <a href="about.html" class="u-cta-button">Sobre mí</a>
+                        <a href="#" id="gallery-link" class="u-cta-button">Galería</a>
+                        <a href="stories.html" class="u-cta-button">Historias</a>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="gallery" class="section u-gallery">
+        <section id="gallery" class="u-gallery" style="display: none;">
             <div class="u-container">
-                <h2>Galeria</h2>
+                <h2>Galería</h2>
                 <div class="gallery-controls">
                     <select id="sort-select">
                         <option value="default">Predeterminado</option>
@@ -51,11 +51,11 @@
                         <option value="project">Proyecto</option>
                     </select>
                     <select id="project-select">
-                        <!-- Se llenará dinámicamente con JavaScript -->
+                        <option value="all">Todos los proyectos</option>
                     </select>
                 </div>
                 <div id="gallery-grid" class="u-gallery-grid">
-                    <!-- Las imágenes se cargarán dinámicamente aquí -->
+                    <!-- Las imágenes de la galería se cargarán aquí dinámicamente -->
                 </div>
             </div>
         </section>
@@ -63,7 +63,7 @@
 
     <footer class="u-footer">
         <div class="u-container">
-            © 2024 Alejandro Arauz "MrPretendo". Todos los derechos reservados.
+            <p>&copy; 2024 Alejandro Arauz "MrPretendo". Todos los derechos reservados.</p>
         </div>
     </footer>
 
