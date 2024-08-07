@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MrPretendo - Portafolio gráfico y edición de texto</title>
+    <link rel="preload" href="./gallery-data.json" as="fetch" crossorigin="anonymous">
     <link rel="preload" href="css/styles.css" as="style">
     <link rel="preload" href="js/script.js" as="script">
-    <link rel="preload" href="gallery-data.json" as="fetch" crossorigin="anonymous">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Aptos&display=swap" as="style">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/menuButtonBygagan-gv.css"> <!-- Cargar el CSS del menú -->
@@ -30,9 +30,9 @@
                     <h1>MrPretendo</h1>
                     <p>Portafolio gráfico y edición de texto</p>
                     <div class="u-cta-container">
-                        <a href="about.html" class="u-cta-button">Sobre mí</a>
                         <a href="#" id="gallery-link" class="u-cta-button">Galería</a>
-                        <a href="stories.html" class="u-cta-button">Historias</a>
+                        <a href="#" id="stories-link" class="u-cta-button">Historias</a>
+                        <a href="#" id="about-link" class="u-cta-button">Sobre mí</a>
                     </div>
                 </div>
             </div>
@@ -56,6 +56,10 @@
                     <!-- Las imágenes de la galería se cargarán aquí dinámicamente -->
                 </div>
             </div>
+        </section>
+        
+        <section id="about" class="u-about" style="display: none;">
+            <!-- El contenido de about.html se cargará aquí -->
         </section>
     </main>
 

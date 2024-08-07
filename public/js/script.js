@@ -1,5 +1,3 @@
-// script.js
-
 // Variables globales
 let galleryData = [];
 const galleryGrid = document.getElementById('gallery-grid');
@@ -11,7 +9,12 @@ const modalTitle = document.getElementById('modal-title');
 const modalDescription = document.getElementById('modal-description');
 const modalLongDescription = document.getElementById('modal-long-description');
 const modalDate = document.getElementById('modal-date');
-const closeBtn = document.getElementsByClassName('close')[0];
+const sections = {
+    home: document.getElementById('home'),
+    gallery: document.getElementById('gallery'),
+    about: document.getElementById('about')
+};
+let aboutContent = '';
 
 // Función principal de inicialización
 function initializeApp() {
@@ -25,60 +28,76 @@ function initDarkMode() {
     const toggleContainer = document.getElementById('dark-mode-toggle-container');
     const toggle = document.getElementById('toggle');
     
-    if (localStorage.getItem('darkMode') === 'enabled') {
-        document.body.classList.add('dark-mode');
-        toggle.checked = true;
-    }
-
-    toggleContainer.addEventListener('click', function() {
-        toggle.checked = !toggle.checked;
-        if (toggle.checked) {
+    if (toggleContainer && toggle) {
+        if (localStorage.getItem('darkMode') === 'enabled') {
             document.body.classList.add('dark-mode');
-            localStorage.setItem('darkMode', 'enabled');
-        } else {
-            document.body.classList.remove('dark-mode');
-            localStorage.setItem('darkMode', null);
+            toggle.checked = true;
         }
-    });
+
+        toggleContainer.addEventListener('click', function() {
+            toggle.checked = !toggle.checked;
+            if (toggle.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', null);
+            }
+        });
+    } else {
+        console.error('Dark mode toggle elements not found');
+    }
 }
 
-// Manejar la transición entre la página principal y la galería
+// Manejar la transición entre secciones
 function handlePageTransition() {
-    const homeSection = document.getElementById('home');
-    const gallerySection = document.getElementById('gallery');
-    const galleryLink = document.getElementById('gallery-link');
     const homeLink = document.querySelector('.u-logo');
+    const galleryLink = document.getElementById('gallery-link');
+    const aboutLink = document.getElementById('about-link');
+    const menuAboutLink = document.getElementById('menu-about-link');
     const heroGalleryLink = document.querySelector('.u-hero .u-cta-container .u-cta-button#gallery-link');
+    const heroAboutLink = document.querySelector('.u-hero .u-cta-container .u-cta-button#about-link');
 
-    const showGallery = function(e) {
-        e.preventDefault();
-        homeSection.classList.add('fade-out');
-        setTimeout(() => {
-            homeSection.style.display = 'none';
-            homeSection.classList.remove('fade-out');
-            gallerySection.style.display = 'block';
-            gallerySection.classList.add('fade-in');
+    const showSection = function(e, section) {
+        if (e) e.preventDefault();
+        Object.values(sections).forEach(sec => {
+            if (sec) {
+                sec.style.display = 'none';
+                sec.classList.remove('active-section');
+            }
+        });
+        if (section) {
+            section.style.display = 'block';
+            section.classList.add('active-section');
+            section.classList.add('fade-in');
             setTimeout(() => {
-                gallerySection.classList.remove('fade-in');
+                section.classList.remove('fade-in');
             }, 500);
-        }, 500);
+        }
+
+        // Asegurarse de que la sección de inicio siempre mantenga su estilo centrado
+        if (sections.home) {
+            sections.home.style.display = section === sections.home ? 'flex' : 'none';
+            sections.home.style.alignItems = 'center';
+            sections.home.style.justifyContent = 'center';
+            sections.home.style.minHeight = '100vh';
+        }
     };
 
-    galleryLink.addEventListener('click', showGallery);
-    heroGalleryLink.addEventListener('click', showGallery);
-
-    homeLink.addEventListener('click', function(e) {
+    if (galleryLink) galleryLink.addEventListener('click', (e) => showSection(e, sections.gallery));
+    if (heroGalleryLink) heroGalleryLink.addEventListener('click', (e) => showSection(e, sections.gallery));
+    if (aboutLink) aboutLink.addEventListener('click', (e) => {
+        loadAboutContent().then(() => showSection(e, sections.about));
+    });
+    if (heroAboutLink) heroAboutLink.addEventListener('click', (e) => {
+        loadAboutContent().then(() => showSection(e, sections.about));
+    });
+    if (menuAboutLink) menuAboutLink.addEventListener('click', (e) => {
+        loadAboutContent().then(() => showSection(e, sections.about));
+    });
+    if (homeLink) homeLink.addEventListener('click', function(e) {
         e.preventDefault();
-        gallerySection.classList.add('fade-out');
-        setTimeout(() => {
-            gallerySection.style.display = 'none';
-            gallerySection.classList.remove('fade-out');
-            homeSection.style.display = 'flex';
-            homeSection.classList.add('fade-in');
-            setTimeout(() => {
-                homeSection.classList.remove('fade-in');
-            }, 500);
-        }, 500);
+        showSection(e, sections.home);
     });
 }
 
@@ -86,6 +105,11 @@ function handlePageTransition() {
 function setupMenuButton() {
     const menuButton = document.getElementById('menu-button');
     const dropdownMenu = document.getElementById('dropdown-menu');
+
+    if (!menuButton || !dropdownMenu) {
+        console.error('Menu button or dropdown menu not found');
+        return;
+    }
 
     menuButton.addEventListener('click', function(event) {
         event.stopPropagation();
@@ -108,37 +132,55 @@ function setupMenuButton() {
     document.querySelectorAll('.dropdown-item').forEach(item => {
         item.addEventListener('click', function(e) {
             const section = e.target.getAttribute('data-section');
-            dropdownMenu.style.display = 'none'; // Cerrar el menú al seleccionar una opción
+            dropdownMenu.style.display = 'none';
             menuButton.classList.remove('menu-open');
-            if (section) {
-                e.preventDefault();
+            if (section === 'gallery') {
                 document.getElementById('gallery-link').click();
+            } else if (section === 'about') {
+                document.getElementById('about-link').click();
             }
         });
     });
 
-    // Asignar la función del botón Galería del menú
     const galleryMenuItem = document.querySelector('.dropdown-item[data-section="gallery"]');
-    galleryMenuItem.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.getElementById('gallery-link').click();
-    });
+    if (galleryMenuItem) {
+        galleryMenuItem.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('gallery-link').click();
+        });
+    }
 }
 
 // Cargar datos de la galería
 function loadGalleryData() {
-    fetch('gallery-data.json')
-        .then(response => response.json())
+    console.log('Intentando cargar datos de la galería...');
+    fetch('./gallery-data.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
+            console.log('Datos cargados:', data);
             galleryData = data.images;
             populateProjectSelect();
             renderGallery(galleryData);
         })
-        .catch(error => console.error('Error loading gallery data:', error));
+        .catch(error => {
+            console.error('Error loading gallery data:', error);
+            if (galleryGrid) {
+                galleryGrid.innerHTML = '<p>Error al cargar los datos de la galería. Por favor, verifica la ruta del archivo JSON y vuelve a intentarlo.</p>';
+            }
+        });
 }
 
 // Poblar el select de proyectos
 function populateProjectSelect() {
+    if (!projectSelect) {
+        console.error('Project select element not found');
+        return;
+    }
     const projects = [...new Set(galleryData.map(img => img.project))].sort();
     projectSelect.innerHTML = '<option value="all">Todos los proyectos</option>';
     projects.forEach(project => {
@@ -151,6 +193,11 @@ function populateProjectSelect() {
 
 // Renderizar la galería
 function renderGallery(images) {
+    if (!galleryGrid) {
+        console.error('Gallery grid element not found');
+        return;
+    }
+    console.log('Renderizando galería con', images.length, 'imágenes');
     galleryGrid.innerHTML = '';
     images.forEach(image => {
         const galleryItem = document.createElement('div');
@@ -179,6 +226,10 @@ function addImageClickListeners() {
 
 // Ordenar y filtrar imágenes
 function sortImages() {
+    if (!sortSelect || !projectSelect) {
+        console.error('Sort or project select elements not found');
+        return;
+    }
     const sortBy = sortSelect.value;
     const projectFilter = projectSelect.value;
     
@@ -208,6 +259,10 @@ function sortImages() {
 
 // Abrir modal
 function openModal(image) {
+    if (!modal || !modalImg || !modalTitle || !modalDescription || !modalLongDescription || !modalDate) {
+        console.error('Modal elements not found');
+        return;
+    }
     modal.style.display = "block";
     modalImg.src = image.fullImage;
     modalImg.onload = resizeImage;
@@ -219,6 +274,7 @@ function openModal(image) {
 
 // Redimensionar imagen en el modal
 function resizeImage() {
+    if (!modalImg) return;
     const containerWidth = modalImg.parentElement.offsetWidth;
     const containerHeight = modalImg.parentElement.offsetHeight;
     const imgRatio = modalImg.naturalWidth / modalImg.naturalHeight;
@@ -235,46 +291,79 @@ function resizeImage() {
 
 // Agregar event listeners
 function addEventListeners() {
-    // Efecto de scroll en la barra de navegación
     window.addEventListener('scroll', function() {
         const header = document.querySelector('.u-header');
-        header.classList.toggle('scrolled', window.scrollY > 50);
+        if (header) header.classList.toggle('scrolled', window.scrollY > 50);
     });
 
-    // Cerrar modal
-    closeBtn.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    // Cerrar modal al hacer clic fuera de él
-    window.onclick = function(event) {
-        if (event.target == modal) {
+    const closeBtn = document.querySelector('.close');
+    if (closeBtn && modal) {
+        closeBtn.onclick = function() {
             modal.style.display = "none";
         }
     }
 
-    // Redimensionar imagen al cambiar el tamaño de la ventana
+    if (modal) {
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    }
+
     window.addEventListener('resize', resizeImage);
 
-    // Event listeners para ordenación y filtrado
-    sortSelect.addEventListener('change', sortImages);
-    projectSelect.addEventListener('change', sortImages);
+    if (sortSelect && projectSelect) {
+        sortSelect.addEventListener('change', sortImages);
+        projectSelect.addEventListener('change', sortImages);
+    }
 
-    // Desplazamiento suave para los enlaces de navegación
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
+            const targetElement = document.querySelector(this.getAttribute('href'));
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
         });
     });
 }
 
+function loadAboutStyles() {
+    if (!document.getElementById('about-styles')) {
+        const link = document.createElement('link');
+        link.id = 'about-styles';
+        link.rel = 'stylesheet';
+        link.href = 'css/about.css';
+        document.head.appendChild(link);
+    }
+}
+
+function loadAboutContent() {
+    if (aboutContent) {
+        return Promise.resolve();
+    }
+    
+    return fetch('about.html')
+        .then(response => response.text())
+        .then(html => {
+            const aboutSection = document.getElementById('about');
+            if (aboutSection) {
+                aboutSection.innerHTML = html;
+                aboutContent = html;
+                loadAboutStyles();
+            } else {
+                console.error('About section not found');
+            }
+        })
+        .catch(error => console.error('Error loading about content:', error));
+}
+
 // Inicializar la aplicación cuando se carga el DOM
-document.addEventListener('DOMContentLoaded', setupMenuButton);
 document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
-    setupMenuButton(); // Configurar eventos del botón del menú
-    initDarkMode(); // Inicializar la funcionalidad de modo oscuro
+    setupMenuButton();
+    initDarkMode();
 });

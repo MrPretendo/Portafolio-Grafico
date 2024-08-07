@@ -1,0 +1,91 @@
+.u-about {
+    padding: 8rem 0;
+    background-color: var(--bg-color);
+}
+
+.about-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.author-photo {
+    width: 20rem;
+    height: 20rem;
+    border-radius: 50%;
+    margin-bottom: 2rem;
+    object-fit: cover;
+}
+
+.about-content h2 {
+    font-size: 3.6rem;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+}
+
+.author-description {
+    font-size: 1.8rem;
+    max-width: 80rem;
+    margin: 0 auto 3rem;
+    line-height: 1.6;
+}
+
+.author-links {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.author-links a {
+    font-size: 1.6rem;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.author-links a:hover {
+    color: #0056b3;
+}
+
+.author-details {
+    text-align: left;
+    max-width: 60rem;
+    margin: 0 auto;
+}
+
+.author-details h3 {
+    font-size: 2.4rem;
+    margin: 2rem 0 1rem;
+    color: var(--text-color);
+}
+
+.author-details ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.author-details li {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+@media (max-width: 768px) {
+    .author-photo {
+        width: 15rem;
+        height: 15rem;
+    }
+
+    .about-content h2 {
+        font-size: 3rem;
+    }
+
+    .author-description {
+        font-size: 1.6rem;
+    }
+
+    .author-details h3 {
+        font-size: 2rem;
+    }
+}
