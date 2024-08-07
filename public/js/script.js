@@ -1,3 +1,5 @@
+// script.js
+
 // Variables globales
 let galleryData = [];
 const galleryGrid = document.getElementById('gallery-grid');
@@ -13,35 +15,24 @@ const closeBtn = document.getElementsByClassName('close')[0];
 
 // Función principal de inicialización
 function initializeApp() {
-    loadDarkModeToggle();
     handlePageTransition();
     loadGalleryData();
     addEventListeners();
 }
 
-// Cargar el toggle de modo oscuro
-function loadDarkModeToggle() {
-    fetch('darkmode.html')
-        .then(response => response.text())
-        .then(data => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(data, 'text/html');
-            const toggleContainer = doc.getElementById('theme-toggle-button');
-            document.getElementById('dark-mode-toggle-container').appendChild(toggleContainer);
-            initDarkMode();
-        })
-        .catch(error => console.error('Error loading dark mode toggle:', error));
-}
-
 // Inicializar la funcionalidad de modo oscuro
 function initDarkMode() {
+    const toggleContainer = document.getElementById('dark-mode-toggle-container');
     const toggle = document.getElementById('toggle');
+    
     if (localStorage.getItem('darkMode') === 'enabled') {
         document.body.classList.add('dark-mode');
         toggle.checked = true;
     }
-    toggle.addEventListener('change', function() {
-        if (this.checked) {
+
+    toggleContainer.addEventListener('click', function() {
+        toggle.checked = !toggle.checked;
+        if (toggle.checked) {
             document.body.classList.add('dark-mode');
             localStorage.setItem('darkMode', 'enabled');
         } else {
@@ -59,7 +50,7 @@ function handlePageTransition() {
     const homeLink = document.querySelector('.u-logo');
     const heroGalleryLink = document.querySelector('.u-hero .u-cta-container .u-cta-button#gallery-link');
 
-    galleryLink.addEventListener('click', function(e) {
+    const showGallery = function(e) {
         e.preventDefault();
         homeSection.classList.add('fade-out');
         setTimeout(() => {
@@ -71,21 +62,10 @@ function handlePageTransition() {
                 gallerySection.classList.remove('fade-in');
             }, 500);
         }, 500);
-    });
+    };
 
-    heroGalleryLink.addEventListener('click', function(e) {
-        e.preventDefault();
-        homeSection.classList.add('fade-out');
-        setTimeout(() => {
-            homeSection.style.display = 'none';
-            homeSection.classList.remove('fade-out');
-            gallerySection.style.display = 'block';
-            gallerySection.classList.add('fade-in');
-            setTimeout(() => {
-                gallerySection.classList.remove('fade-in');
-            }, 500);
-        }, 500);
-    });
+    galleryLink.addEventListener('click', showGallery);
+    heroGalleryLink.addEventListener('click', showGallery);
 
     homeLink.addEventListener('click', function(e) {
         e.preventDefault();
@@ -102,14 +82,33 @@ function handlePageTransition() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    handlePageTransition();
-});
+// Configurar el botón del menú
+function setupMenuButton() {
+    const menuButton = document.getElementById('menu-button');
+    const dropdownMenu = document.getElementById('dropdown-menu');
 
+    menuButton.addEventListener('click', function() {
+        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+    });
 
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', function(e) {
+            const section = e.target.getAttribute('data-section');
+            dropdownMenu.style.display = 'none'; // Cerrar el menú al seleccionar una opción
+            if (section) {
+                e.preventDefault();
+                document.getElementById('gallery-link').click();
+            }
+        });
+    });
 
-
-
+    // Asignar la función del botón Galería del menú
+    const galleryMenuItem = document.querySelector('.dropdown-item[data-section="gallery"]');
+    galleryMenuItem.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('gallery-link').click();
+    });
+}
 
 // Cargar datos de la galería
 function loadGalleryData() {
@@ -258,4 +257,8 @@ function addEventListeners() {
 }
 
 // Inicializar la aplicación cuando se carga el DOM
-document.addEventListener('DOMContentLoaded', initializeApp);
+document.addEventListener('DOMContentLoaded', function() {
+    initializeApp();
+    setupMenuButton(); // Configurar eventos del botón del menú
+    initDarkMode(); // Inicializar la funcionalidad de modo oscuro
+});

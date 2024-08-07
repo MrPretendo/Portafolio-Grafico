@@ -9,6 +9,7 @@
     <link rel="preload" href="gallery-data.json" as="fetch" crossorigin="anonymous">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Aptos&display=swap" as="style">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/menuButtonBygagan-gv.css"> <!-- Cargar el CSS del menú -->
 </head>
 <body>
     <header class="u-header">
@@ -16,10 +17,7 @@
             <a href="index.html" class="u-logo">MrPretendo</a>
             <nav>
                 <ul class="u-nav">
-                    <li><a href="#" id="gallery-link">Galeria</a></li>
-                    <li><a href="stories.html">Historias</a></li>
-                    <li><a href="about.html">Acerca de</a></li>
-                    <li id="dark-mode-toggle-container"></li>
+                    <li id="menu-container"></li> <!-- Contenedor para el botón de menú -->
                 </ul>
             </nav>
         </div>
@@ -83,5 +81,16 @@
     </div>
 
     <script src="js/script.js"></script>
+    <script>
+        // Cargar el botón del menú y la lista de secciones desde el archivo HTML
+        fetch('assets/menuButtonBygagan-gv.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('menu-container').innerHTML = data;
+                setupMenuButton(); // Configurar eventos del botón del menú
+                initDarkMode(); // Inicializar la funcionalidad de modo oscuro
+            })
+            .catch(error => console.error('Error loading menu button:', error));
+    </script>
 </body>
 </html>

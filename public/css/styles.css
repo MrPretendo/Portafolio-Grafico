@@ -49,8 +49,10 @@ body {
 
 /* Dark mode toggle styles */
 #theme-toggle-button {
-    font-size: 15px;
-    position: relative;
+    align-items: center;
+    font-size: 1.5em;
+    position:relative;
+    padding: 0.5em;
     display: flex;
     width: 3em;
     cursor: pointer;
