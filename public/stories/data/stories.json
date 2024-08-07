@@ -2,10 +2,10 @@
   "projects": [
     {
       "id": "012",
-      "projectPath": "content/012/",
+      "projectPath": "stories/content/012/",
       "title": "012",
       "description": "Descripción XD.",
-      "cover": "img/covers/012.jpg",
+      "cover": "/public/img/covers/012.jpg",
       "chapters": [
         {
           "id": "capitulo-1",
@@ -26,10 +26,10 @@
     },
     {
       "id": "ANormalDays",
-      "projectPath": "content/ANormalDays/",
+      "projectPath": "stories/content/ANormalDays/",
       "title": "A Normal Days",
       "description": "Una historia fuera de lo común.",
-      "cover": "img/covers/and.jpg",
+      "cover": "/public/img/covers/and.jpg",
       "chapters": [
         {
           "id": "capitulo-1",
@@ -45,10 +45,10 @@
     },
     {
       "id": "EtlierDimmen",
-      "projectPath": "content/EtlierDimmen/",
+      "projectPath": "stories/content/EtlierDimmen/",
       "title": "Etlier Dimmen",
       "description": "Una aventura en el mundo de Etlier.",
-      "cover": "img/covers/etlier.jpg",
+      "cover": "/public/img/covers/etlier.jpg",
       "chapters": [
         {
           "id": "capitulo-1",

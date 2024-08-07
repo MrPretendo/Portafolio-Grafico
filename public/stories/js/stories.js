@@ -1,5 +1,5 @@
 // Cargar la estructura de historias
-fetch('data/stories.json')
+fetch('/public/stories/data/stories.json')
   .then(response => response.json())
   .then(data => {
     createMenu(data.projects);

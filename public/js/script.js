@@ -56,8 +56,9 @@ function handlePageTransition() {
     const aboutLink = document.getElementById('about-link');
     const menuAboutLink = document.getElementById('menu-about-link');
     const heroGalleryLink = document.querySelector('.u-hero .u-cta-container .u-cta-button#gallery-link');
-    const heroAboutLink = document.querySelector('.u-hero .u-cta-container .u-cta-button#about-link');
-    const heroStoryLink = document.querySelector('.u-hero .u-cta-container .u-cta-button#story-link');
+    const heroStoryLink = document.querySelector('.u-hero .u-cta-container .u-cta-button#stories-link');
+    const menuStoryLink = document.querySelector('.dropdown-item[href="stories.html"]');
+
 
     const showSection = function(e, section) {
         if (e) e.preventDefault();
@@ -90,9 +91,6 @@ function handlePageTransition() {
     if (aboutLink) aboutLink.addEventListener('click', (e) => {
         loadAboutContent().then(() => showSection(e, sections.about));
     });
-    if (heroAboutLink) heroAboutLink.addEventListener('click', (e) => {
-        loadAboutContent().then(() => showSection(e, sections.about));
-    });
     if (menuAboutLink) menuAboutLink.addEventListener('click', (e) => {
         loadAboutContent().then(() => showSection(e, sections.about));
     });
@@ -100,6 +98,20 @@ function handlePageTransition() {
         e.preventDefault();
         showSection(e, sections.home);
     });
+
+    // Manejar la redirección a stories.html
+    if (heroStoryLink) {
+        heroStoryLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = '/public/stories.html';
+        });
+    }
+    if (menuStoryLink) {
+        menuStoryLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = '/public/stories.html';
+        });
+    }
 }
 
 // Configurar el botón del menú
