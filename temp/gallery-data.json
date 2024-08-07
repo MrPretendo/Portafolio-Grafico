@@ -1,0 +1,130 @@
+{
+    "images": [
+      {
+        "id": 1,
+        "title": "Fauces del abismo",
+        "description": "Un recordatorio de una fiesta que nunca terminó.",
+        "date": "2024/02/09 - Etlier Dimmen",
+        "thumbnail": "public/img/thumbnail/1imgVesti.jpg",
+        "fullImage": "img/1imgVesti.jpeg",
+        "longDescription": "La risa de la Arlequín resonaba en los calabozos de la secretaría de guerra, donde la luz no se atrevía a entrar. Se dice que aquellos quienes confiaron en su sonrisa no encontraron retorno, sino una eternidad tortuosa de danza pagana."
+      },
+      {
+        "id": 2,
+        "title": "Día normal",
+        "description": "Primer concept art para AND.",
+        "date": "2017/04/08 - A Normal Days",
+        "thumbnail": "public/img/thumbnail/2imgAND2016.jpg",
+        "fullImage": "img/2imgAND2016.jpeg",
+        "longDescription": "Uno de mis primeros dibujos digitales, lo diseñé durante un curso que tomé por parte de una escuela llamada \"Overlight\", que me enseñaron nada, pero me pusieron a trabajar. Los garabatos en forma de texto los dibujó mi instructor, que quiso simular kanjis... Irónicamente yo ya estudiaba japonés, los conservé como un bonito recuerdo. Sobre la imagen, Tom Sunderland y una primera versión de Allison Daly."
+      },
+      {
+        "id": 3,
+        "title": "Lamento",
+        "description": "Un alma atormentada en un cuerpo demoníaco, atrapada en un ciclo de desesperación.",
+        "date": "2023/08/11",
+        "thumbnail": "public/img/thumbnail/3imgCaos.jpg",
+        "fullImage": "img/3imgCaos.jpeg",
+        "longDescription": "Una criatura que nunca tuvo la oportunidad de redimirse, alza sus plegarias cuando Dios ya ha cerrado los oídos. Sus lágrimas negras caen sin esperanza de clemencia. ¿Podrá alguna vez encontrar el perdón en un cielo vacío?"
+      },
+      {
+        "id": 4,
+        "title": "Sacrificio eterno",
+        "description": "En el acto de amor más grande de la existencia, eligió convertirse en obscuridad para que su hermano pudiera brillar.",
+        "date": "2024/01/23 - 012",
+        "thumbnail": "public/img/thumbnail/4imgLucifer.jpg",
+        "fullImage": "img/4imgLucifer.jpeg",
+        "longDescription": "En el principio de la creación, Dios formó dos poderosos arcángeles, Miguel y Lucifer, quienes eran amados por igual. Cuando llegó el momento de establecer el balance entre la luz y la oscuridad, Dios necesitaba un líder para las tinieblas, asegurando así la existencia del mal y el libre albedrío. Lucifer se ofreció voluntario, garantizando que el odio jamás tocara a su hermano Miguel. Asumió el papel del adversario, sabiendo que su destino sería ser derrotado una y otra vez por los ejércitos celestiales liderados por el ser que más amó. Con el paso de las eras, Lucifer se convirtió en el símbolo máximo del mal, enfrentando constantemente la luz y la justicia del cielo. Sin embargo, en su soledad y pesar, a veces sus lágrimas brotan de manera incontrolable. Estas lágrimas son testigos de un tormento eterno, preguntándose si su sufrimiento proviene de la añoranza del amor perdido o de la lamentación por la decisión que lo condenó. El Portador de la Luz, en su sacrificio, revela la paradoja del mal nacido del amor más puro."
+      },
+      {
+        "id": 5,
+        "title": "Solo son...",
+        "description": "Ya no hay buenos días, solo días.",
+        "date": "2023/12/29",
+        "thumbnail": "public/img/thumbnail/5imgDays.jpg",
+        "fullImage": "img/5imgDays.jpeg",
+        "longDescription": "No eres el problema, solo dejaste de serles útil."
+      },
+      {
+        "id": 6,
+        "title": "Pésame",
+        "description": "Máximo Arcángel que carga con el peso de la batalla en contra de su hermano caído.",
+        "date": "2024/02/29 - 012",
+        "thumbnail": "public/img/thumbnail/6imgGabriel.jpg",
+        "fullImage": "img/6imgGabriel.jpeg",
+        "longDescription": "En sus momentos de soledad, las lágrimas brotan, un reflejo del amor y la tristeza por su igual de creación. Encarna el conflicto entre deber y compasión, preguntándose si el sacrificio de su hermano justificó su eterna lucha."
+      },
+      {
+        "id": 7,
+        "title": "Helios",
+        "description": "Is Nobody Here",
+        "date": "2019/11/17",
+        "thumbnail": "public/img/thumbnail/7imgHelios.jpg",
+        "fullImage": "img/7imgHelios.jpeg",
+        "longDescription": "El vaporwave está muerto. Y nosotros lo matamos."
+      },
+      {
+        "id": 8,
+        "title": "Despropósito",
+        "description": "La replicante se adapta al caos y la decadencia del mundo estelar.",
+        "date": "2024/02/07 - SOS project",
+        "thumbnail": "public/img/thumbnail/8imgCyber.jpg",
+        "fullImage": "img/8imgCyber.jpeg",
+        "longDescription": "En un refugio improvisado, escondido en los suburbios de la ciudadela flotante, yace un taller clandestino lleno de herramientas robadas y partes de desecho. Mientras repara los circuitos y engranajes de su brazo dañado, su mente está absorta en pensamientos de supervivencia. Cada ajuste de sus componentes mecánicos refleja su lucha por mantener su existencia en un universo que la considera una reliquia obsoleta. En la oscuridad de su taller, se pregunta si algún día podrá encontrar un lugar donde pertenecer en un mundo que ha olvidado a sus creadores. Cada día debe interpretar un amargo libreto de desperanza y soledad."
+      },
+      {
+        "id": 9,
+        "title": "Betty Boop",
+        "description": "Original de Minus8.",
+        "date": "2017/02/02",
+        "thumbnail": "public/img/thumbnail/9imgBetty.jpg",
+        "fullImage": "img/9imgBetty.jpeg",
+        "longDescription": "Minus8 ya recibió ayuda psicológica, y yo la redibujé porque se veía bonita."
+      },
+      {
+        "id": 10,
+        "title": "Tu se' Pagliaccio",
+        "description": "Ríete de tus desgracias y el público aplaudirá.",
+        "date": "2021/11/05",
+        "thumbnail": "public/img/thumbnail/10imgPaggiacci.jpg",
+        "fullImage": "img/10imgPaggiacci.jpeg",
+        "longDescription": "¿No sienten como si algo terrible estuviese a punto de suceder?"
+      },
+      {
+        "id": 11,
+        "title": "Fast Delivery!",
+        "description": "Sofía aprendió la de \"Chambear\".",
+        "date": "2021/03/19 - A Normal Days",
+        "thumbnail": "public/img/thumbnail/11imgPizzaHot.jpg",
+        "fullImage": "img/11imgPizzaHot.png",
+        "longDescription": "No tengo una historia para este personaje, no tiene sentido que trabaje en una pizzería porque es ciega. Fue mi primer intento real de hacer estilo anime, luego de esta práctica me enteré que la magia se encuentra en colores saturados y filtro gaussiano. Tenía muchas ideas para la imagen original, pero nunca he sido de organizar bien los personajes con un fondo, por eso terminó como terminó, de cualquier forma, así me gustó."
+      },
+      {
+        "id": 12,
+        "title": "Patos",
+        "description": "Una payasa cargando patos.",
+        "date": "2024/02/20",
+        "thumbnail": "public/img/thumbnail/12imgPonmi.jpg",
+        "fullImage": "img/12imgPonmi.jpeg",
+        "longDescription": "Quisiera tener un trasfondo para este personaje, pero no es más que la combinación del estreno de Digital Circus con yo mismo, en el parque alimentando patos con comida para peces dos bolsas por diez. Nota: Subir la versión final. Se me había acabado la tinta del bolígrafo y lo terminé de pintar dos días después (lo que tardé en hacerme con el bolígrafo de Diego)."
+      },
+      {
+        "id": 13,
+        "title": "Deus Sabaoth",
+        "description": "Quisiera no sentirme solo.",
+        "date": "2022/12/21",
+        "thumbnail": "public/img/thumbnail/13imgSanctus.jpg",
+        "fullImage": "img/13imgSanctus.jpeg",
+        "longDescription": "En una época donde quería vender dibujos y retratos en el parque, pensé que los gatos y Dios venden muy bien. Pero eso sería aprovecharme de la fe de la gente y Wilson a estado hospitalizado unas cuantas veces, mi gato no la ha tenido peor, así que busco a quien agradecer\". Una broma que suelo decir es referencia a Diógenes el perro, quien buscaba \"a un hombre justo\", lo importante de la búsqueda no es el resultado, sino el proceso."
+      },
+      {
+        "id": 14,
+        "title": "Monarca",
+        "description": "Diseño de tatuaje de una mariposa monarca.",
+        "date": "2023/11/01",
+        "thumbnail": "public/img/thumbnail/14imgMonarc.jpg",
+        "fullImage": "img/14imgMonarc.jpeg",
+        "longDescription": "Lo más cercano que he hecho de una comisión."
+      }
+    ]
+  }

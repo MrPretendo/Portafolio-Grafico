@@ -1,7 +1,6 @@
-/*Import */
 @import url('https://fonts.googleapis.com/css2?family=Aptos&display=swap');
 
-/* Reset and base styles */
+/* Reset y estilos base */
 * {
     margin: 0;
     padding: 0;
@@ -22,7 +21,7 @@ body {
     padding: 0 20px;
 }
 
-/* Header styles */
+/* Estilos del encabezado */
 .u-header {
     background-color: rgba(255, 255, 255, 0.9);
     padding: 1rem 0;
@@ -72,15 +71,15 @@ body {
     color: #007bff;
 }
 
-/* Main content adjustment */
+/* Ajuste del contenido principal */
 main {
-    padding-top: 80px; /* Adjust this value based on your navbar height */
+    padding-top: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-/* Hero section styles */
+/* Estilos de la sección hero */
 .u-hero {
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/600');
     background-size: cover;
@@ -125,7 +124,7 @@ main {
     transform: translateY(-3px);
 }
 
-/* Gallery section styles */
+/* Estilos de la sección de galería */
 .u-gallery {
     padding: 80px 0;
     background-color: #fff;
@@ -134,9 +133,24 @@ main {
 
 .u-gallery h2 {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     font-size: 2.5rem;
     color: #333;
+}
+
+.gallery-controls {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.gallery-controls select {
+    padding: 10px;
+    margin: 0 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 1rem;
 }
 
 .u-gallery-grid {
@@ -160,7 +174,7 @@ main {
 .image-container {
     width: 100%;
     height: 0;
-    padding-bottom: 100%; /* Creates a square aspect ratio */
+    padding-bottom: 100%;
     position: relative;
     overflow: hidden;
 }
@@ -182,21 +196,14 @@ main {
 }
 
 .u-gallery-item h4 {
-    padding: 0 10px;
+    padding: 0 10px 15px;
     text-align: center;
     font-size: 1rem;
     font-weight: normal;
     color: #666;
 }
 
-.u-gallery-item h6 {
-    padding: 5px 10px 15px;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #999;
-}
-
-/* Modal styles */
+/* Estilos del modal */
 .modal {
     display: none;
     position: fixed;
@@ -217,7 +224,7 @@ main {
     width: 90%;
     height: 90%;
     display: flex;
-    flex-direction: row-reverse; /* This line reverses the order */
+    flex-direction: row-reverse;
     background-color: #fff;
     border-radius: 10px;
     overflow: hidden;
@@ -228,18 +235,6 @@ main {
     padding: 20px;
     background-color: #f8f8f8;
     overflow-y: auto;
-    font-family: 'aptos';
-    
-}
-.hidden-date {
-    display: none;
-}
-
-.modal-info .modal-date {
-    display: block;
-    margin-top: 20px;
-    color: #888;
-    font-size: 0.9em;
 }
 
 .modal-info h2 {
@@ -249,17 +244,15 @@ main {
 
 .modal-info p {
     margin-bottom: 20px;
-    text-align: justify;
 }
 
 #modal-long-description {
     font-family: 'Aptos', sans-serif;
-    font-size: 1.3rem;
     text-align: justify;
+    white-space: pre-wrap;
     line-height: 1.6;
-    white-space: pre-wrap; /* Esto hace respetar los saltos de línea del HTML */
+    font-size: 1.1em;
 }
-
 
 .modal-info small {
     display: block;
@@ -300,7 +293,7 @@ main {
     cursor: pointer;
 }
 
-/* Footer styles */
+/* Estilos del pie de página */
 .u-footer {
     background-color: #333;
     color: #fff;
@@ -309,7 +302,7 @@ main {
     width: 100%;
 }
 
-/* Responsive styles */
+/* Estilos responsivos */
 @media (max-width: 768px) {
     .modal-content {
         flex-direction: column-reverse;

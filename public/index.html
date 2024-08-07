@@ -1,24 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
-    <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>MrPretendo - Portafolio</title>
-            
-            <!-- Preload CSS -->
-            <link rel="preload" href="css/styles.css" as="style">
-            <link rel="stylesheet" href="css/styles.css">
-            
-            <!-- Preload fonts -->
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Arial&display=swap">
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arial&display=swap">
-            
-            <!-- Preload JavaScript -->
-            <link rel="preload" href="js/script.js" as="script">
-        </head>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MrPretendo - Portafolio gráfico y edición de texto</title>
+    
+    <!-- Preloads -->
+    <link rel="preload" href="css/styles.css" as="style">
+    <link rel="preload" href="js/script.js" as="script">
+    <link rel="preload" href="gallery-data.json" as="fetch" crossorigin="anonymous">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Aptos&display=swap" as="style">
+    
+    <link rel="stylesheet" href="css/styles.css">
+</head>
 <body>
     <header class="u-header">
         <div class="u-container">
@@ -33,8 +27,8 @@
         </div>
     </header>
 
-    <main>
-        <section id="home" class="u-hero">
+    <main role="main">
+        <section id="home" class="section u-hero">
             <div class="u-container">
                 <h1>MrPretendo</h1>
                 <p>Portafolio gráfico y edición de texto</p>
@@ -45,194 +39,22 @@
             </div>
         </section>
 
-        <section id="gallery" class="u-gallery">
+        <section id="gallery" class="section u-gallery">
             <div class="u-container">
                 <h2>Galeria</h2>
-                <div class="u-gallery-grid">
-                    
-                    <div class="u-gallery-item">
-                        <div class="image-container">
-                            <img src="img/1imgVesti.jpeg" alt="image">
-                        </div>
-                        <h3>Fauces del abismo</h3>
-                        <h4>Un recordatorio de una fiesta que nunca terminó.<div class=""></div></h4>
-                        <span class="hidden-date" style="display: none;">2024/02/09 - Etlier Dimmen</span>
-                        <p class="long-description" style="display: none;"
-                        >La risa de la Arlequín resonaba en los calabozos de la secretaría de guerra, donde la luz no se atrevía a entrar.<br><br> 
-
-Se dice que aquellos quienes confiaron en su sonrisa no encontraron retorno, sino una eternidad tortuosa de danza pagana.</p>
-                    </div>
-
-                    <div class="u-gallery-item">
-                        <div class="image-container">
-                            <img src="img/2imgAND2016.jpg" alt="image">
-                        </div>
-                        <h3>Día normal</h3>
-                        <h4>Primer concept art para AND.<div class=""></div></h4>
-                        <span class="hidden-date" style="display: none;">2017/04/08 - A Normal Days</span>
-                        <p class="long-description" style="display: none;"
-                        >Uno de mis primeros dibujos digitales, lo diseñé durante un curso que tomé por parte de una escuela llamada "Overlight", que me enseñaron nada, pero me pusieron a trabajar.<br><br> 
-
-Los garabatos en forma de texto los dibujó mi instructor, que quiso simular kanjis... Irónicamente yo ya estudiaba japonés, los conservé como un bonito recuerdo.
-
-Sobre la imagen, Tom Sunderland y una primera versión de Allison Daly.</p>
-                    </div>
-
-                    <div class="u-gallery-item">
-                        <div class="image-container">
-                            <img src="img/3imgCaos.jpeg" alt="image">
-                        </div>
-                        <h3>Lamento</h3>
-                        <h4>Un alma atormentada en un cuerpo demoníaco, atrapada en un ciclo de desesperación.<div class=""></div></h4>
-                        <span class="hidden-date" style="display: none;">2023/08/11</span>
-                        <p class="long-description" style="display: none;"
-                        >Una criatura que nunca tuvo la oportunidad de redimirse, alza sus plegarias cuando Dios ya ha cerrado los oídos.<br><br> 
-
-Sus lágrimas negras caen sin esperanza de clemencia. ¿Podrá alguna vez encontrar el perdón en un cielo vacío?</p>
-                    </div>
-
-                    <div class="u-gallery-item">
-                        <div class="image-container">
-                            <img src="img/4imgLucifer.jpeg" alt="image">
-                        </div>
-                        <h3>Sacrificio eterno</h3>
-                        <h4>En el acto de amor más grande de la existencia, eligió convertirse en obscuridad para que su hermano pudiera brillar.</h4>
-                        <span class="hidden-date" style="display: none;">2024/01/23 - 012</span>                        
-                        <p class="long-description" style="display: none;">En el principio de la creación, Dios formó dos poderosos arcángeles, Miguel y Lucifer, quienes eran amados por igual. Cuando llegó el momento de establecer el balance entre la luz y la oscuridad, Dios necesitaba un líder para las tinieblas, asegurando así la existencia del mal y el libre albedrío. 
-
-Lucifer se ofreció voluntario, garantizando que el odio jamás tocara a su hermano Miguel. Asumió el papel del adversario, sabiendo que su destino sería ser derrotado una y otra vez por los ejércitos celestiales liderados por el ser que más amó.
-
-Con el paso de las eras, Lucifer se convirtió en el símbolo máximo del mal, enfrentando constantemente la luz y la justicia del cielo. Sin embargo, en su soledad y pesar, a veces sus lágrimas brotan de manera incontrolable. Estas lágrimas son testigos de un tormento eterno, preguntándose si su sufrimiento proviene de la añoranza del amor perdido o de la lamentación por la decisión que lo condenó. 
-
-El Portador de la Luz, en su sacrificio, revela la paradoja del mal nacido del amor más puro.</p>
-
-                    </div>
-
-                    <div class="u-gallery-item">
-                        <div class="image-container">
-                            <img src="img/5imgDays.jpg" alt="image">
-                        </div>
-                        <h3>Solo son...</h3>
-                        <h4>Ya no hay buenos días, solo días.</h4>
-                        <span class="hidden-date" style="display: none;">2023/12/29</span>                        
-                        <p class="long-description" style="display: none;">No eres el problema, solo dejaste de serles útil.</p>
-                    </div>
-
-                    <div class="u-gallery-item">
-                        <div class="image-container">
-                            <img src="img/6imgGabriel.jpeg" alt="image">
-                        </div>
-                        <h3>Pésame</h3>
-                        <h4>Máximo Arcángel que carga con el peso de la batalla en contra de su hermano caído.</h4>
-                        <span class="hidden-date" style="display: none;">2024/02/29 - 012</span>                        
-                        <p class="long-description" style="display: none;">En sus momentos de soledad, las lágrimas brotan, un reflejo del amor y la tristeza por su igual de creación. 
-
-Encarna el conflicto entre deber y compasión, preguntándose si el sacrificio de su hermano justificó su eterna lucha.</p>
-                    </div>
-
-                    <div class="u-gallery-item">
-                        <div class="image-container">
-                            <img src="img/7imgHelios.jpeg" alt="image">
-                        </div>
-                        <h3>Helios</h3>
-                        <h4>Is Nobody Here</h4>
-                        <span class="hidden-date" style="display: none;">2019/11/17</span>
-                        <p class="long-description" style="display: none;">El vaporwave está muerto.
-
-Y nosotros lo matamos.</p>
-                    </div>
-
-                    <div class="u-gallery-item">
-                        <div class="image-container">
-                            <img src="img/8imgCyber.jpeg" alt="image">
-                        </div>
-                        <h3>Despropósito</h3>
-                        <h4>La replicante se adapta al caos y la decadencia del mundo estelar.</h4>
-                        <span class="hidden-date" style="display: none;">2024/02/07 - SOS project</span>                        
-                        <p class="long-description" style="display: none;">En un refugio improvisado, escondido en los suburbios de la ciudadela flotante, yace un taller clandestino lleno de herramientas robadas y partes de desecho. 
-
-Mientras repara los circuitos y engranajes de su brazo dañado, su mente está absorta en pensamientos de supervivencia. Cada ajuste de sus componentes mecánicos refleja su lucha por mantener su existencia en un universo que la considera una reliquia obsoleta.
-                            
-En la oscuridad de su taller, se pregunta si algún día podrá encontrar un lugar donde pertenecer en un mundo que ha olvidado a sus creadores. Cada día debe interpretar un amargo libreto de desperanza y soledad.</p>
-                    </div>
-
-                    <div class="u-gallery-item">
-                        <div class="image-container">
-                            <img src="img/9imgBetty.jpg" alt="image">
-                        </div>
-                        <h3>Betty Boop</h3>
-                        <h4>Original de Minus8.</h4>
-                        <span class="hidden-date" style="display: none;">2017/02/02</span>                        
-                        <p class="long-description" style="display: none;">Minus8 ya recibió ayuda psicológica, y yo la redibujé porque se veía bonita.</p>
-                    </div>
-
-                    <div class="u-gallery-item">
-                        <div class="image-container">
-                            <img src="img/10imgPaggiacci.jpeg" alt="image">
-                        </div>
-                        <h3>Tu se' Pagliaccio</h3>
-                        <h4>Ríete de tus desgracias y el público aplaudirá.</h4>
-                        <span class="hidden-date" style="display: none;">2021/11/05</span>                        
-                        <p class="long-description" style="display: none;">¿No sienten como si algo terrible estuviese a punto de suceder?</p>
-                    </div>
-                    
-                    <div class="u-gallery-item">
-                        <div class="image-container">
-                            <img src="img/11imgPizzaHot.png" alt="image">
-                        </div>
-                        <h3>Fast Delivery!</h3>
-                        <h4>Sofía aprendió la de "Chambear".</h4>
-                        <span class="hidden-date" style="display: none;">2021/03/19 - A Normal Days</span>                        
-                        <p class="long-description" style="display: none;">No tengo una historia para este personaje, no tiene sentido que trabaje en una pizzería porque es ciega.
-
-Fue mi primer intento real de hacer estilo anime, luego de esta práctica me enteré que la magia se encuentra en colores saturados y filtro gaussiano.
-
-Tenía muchas ideas para la imagen original, pero nunca he sido de organizar bien los personajes con un fondo, por eso terminó como terminó, de cualquier forma, así me gustó.
-                    
-                        </p>
-                    </div>
-
-                    <div class="u-gallery-item">
-                        <div class="image-container">
-                            <img src="img/12imgPonmi.jpeg" alt="image">
-                        </div>
-                        <h3>Patos</h3>
-                        <h4>Una payasa cargando patos.</h4>
-                        <span class="hidden-date" style="display: none;">2024/02/20</span>                        
-                        <p class="long-description" style="display: none;">Quisiera tener un trasfondo para este personaje, pero no es más que la combinación del estreno de Digital Circus con yo mismo, en el parque alimentando patos con comida para peces dos bolsas por diez.
-
-Nota: Subir la versión final.
-
-Se me había acabado la tinta del bolígrafo y lo terminé de pintar dos días después (lo que tardé en hacerme con el bolígrafo de Diego).
-                        </p>
-                    </div>
-
-                    <div class="u-gallery-item">
-                        <div class="image-container">
-                            <img src="img/13imgSanctus.jpeg" alt="image">
-                        </div>
-                        <h3>Deus Sabaoth</h3>
-                        <h4>Quisiera no sentirme solo.</h4>
-                        <span class="hidden-date" style="display: none;">2022/12/21</span>                        
-                        <p class="long-description" style="display: none;">En una época donde quería vender dibujos y retratos en el parque, pensé que los gatos y Dios venden muy bien.
-
-Pero eso sería aprovecharme de la fe de la gente y Wilson a estado hospitalizado unas cuantas veces, mi gato no la ha tenido peor, así que busco a quien agradecer".
-
-Una broma que suelo decir es referencia a Diógenes el perro, quien buscaba "a un hombre justo", lo importante de la búsqueda no es el resultado, sino el proceso.
-
-                        </p>
-                    </div>
-
-                    <div class="u-gallery-item">
-                        <div class="image-container">
-                            <img src="img/14imgMonarc.jpeg" alt="image">
-                        </div>
-                        <h3>Monarca</h3>
-                        <h4>Diseño de tatuaje de una mariposa monarca.</h4>
-                        <span class="hidden-date" style="display: none;">2023/11/01</span>                        
-                        <p class="long-description" style="display: none;">Lo más cercano que he hecho de una comisión.</p>
-                    </div>
-
+                <div class="gallery-controls">
+                    <select id="sort-select">
+                        <option value="default">Predeterminado</option>
+                        <option value="dateDesc">Fecha (más reciente primero)</option>
+                        <option value="dateAsc">Fecha (más antigua primero)</option>
+                        <option value="project">Proyecto</option>
+                    </select>
+                    <select id="project-select">
+                        <!-- Se llenará dinámicamente con JavaScript -->
+                    </select>
+                </div>
+                <div id="gallery-grid" class="u-gallery-grid">
+                    <!-- Las imágenes se cargarán dinámicamente aquí -->
                 </div>
             </div>
         </section>
@@ -240,7 +62,7 @@ Una broma que suelo decir es referencia a Diógenes el perro, quien buscaba "a u
 
     <footer class="u-footer">
         <div class="u-container">
-            <p>&copy; 2024 Alejandro Arauz "MrPretendo". Todos los derechos reservados.</p>
+            © 2024 Alejandro Arauz "MrPretendo". Todos los derechos reservados.
         </div>
     </footer>
 
@@ -254,7 +76,7 @@ Una broma que suelo decir es referencia a Diógenes el perro, quien buscaba "a u
                 <small id="modal-date"></small>
             </div>
             <div class="modal-image-container">
-                <img class="modal-image" id="modalImage">
+                <img id="modalImage" class="modal-image">
             </div>
         </div>
     </div>

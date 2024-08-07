@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MrPretendo - Portafolio gráfico y edición de texto</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="u-header">
+        <div class="u-container">
+            <a href="index.html" class="u-logo">MrPretendo</a>
+            <nav>
+                <ul class="u-nav">
+                    <li><a href="#gallery">Galeria</a></li>
+                    <li><a href="stories.html">Historias</a></li>
+                    <li><a href="about.html">Acerca de</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main role="main">
+        <section id="home" class="section u-hero">
+            <div class="u-container">
+                <h1>MrPretendo</h1>
+                <p>Portafolio gráfico y edición de texto</p>
+                <div class="u-cta-container">
+                    <a href="about.html" class="u-cta-button">Sobre mí</a>
+                    <a href="stories.html" class="u-cta-button">Historias</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="section u-gallery">
+            <div class="u-container">
+                <h2>Galeria</h2>
+                <div class="u-gallery-grid">
+                    <div class="u-gallery-item">
+                        <div class="image-container">
+                            <img src="public/img/thumbnail/1imgVesti.jpg" data-full-img="public/img/" alt="Fauces del abismo" loading="lazy">
+                        </div>
+                        <h3>Fauces del abismo</h3>
+                        <h4>Un recordatorio de una fiesta que nunca terminó.</h4>
+                        <div class="hidden-date" style="display: none;">2024/02/09 - Etlier Dimmen</div>
+                        <div class="long-description" style="display: none;">La risa de la Arlequín resonaba en los calabozos de la secretaría de guerra, donde la luz no se atrevía a entrar. Se dice que aquellos quienes confiaron en su sonrisa no encontraron retorno, sino una eternidad tortuosa de danza pagana.</div>
+                    </div>
+
+                    <div class="u-gallery-item">
+                        <div class="image-container">
+                            <img src="public/img/thumbnail/2imgAND2016.jpg" data-full-img="img/2imgAND2016.jpg" alt="Día normal" loading="lazy">
+                        </div>
+                        <h3>Día normal</h3>
+                        <h4>Primer concept art para AND.</h4>
+                        <div class="hidden-date" style="display: none;">2017/04/08 - A Normal Days</div>
+                        <div class="long-description" style="display: none;">Uno de mis primeros dibujos digitales, lo diseñé durante un curso que tomé por parte de una escuela llamada "Overlight", que me enseñaron nada, pero me pusieron a trabajar. Los garabatos en forma de texto los dibujó mi instructor, que quiso simular kanjis... Irónicamente yo ya estudiaba japonés, los conservé como un bonito recuerdo. Sobre la imagen, Tom Sunderland y una primera versión de Allison Daly.</div>
+                    </div>
+
+                    <div class="u-gallery-item">
+                        <div class="image-container">
+                            <img src="public/img/thumbnail/3imgCaos.jpeg" data-full-img="img/3imgCaos.jpeg" alt="Lamento" loading="lazy">
+                        </div>
+                        <h3>Lamento</h3>
+                        <h4>Un alma atormentada en un cuerpo demoníaco, atrapada en un ciclo de desesperación.</h4>
+                        <div class="hidden-date" style="display: none;">2023/08/11</div>
+                        <div class="long-description" style="display: none;">Una criatura que nunca tuvo la oportunidad de redimirse, alza sus plegarias cuando Dios ya ha cerrado los oídos. Sus lágrimas negras caen sin esperanza de clemencia. ¿Podrá alguna vez encontrar el perdón en un cielo vacío?</div>
+                    </div>
+
+                    <div class="u-gallery-item">
+                        <div class="image-container">
+                            <img src="public/img/thumbnail/4imgLucifer.jpeg" data-full-img="img/4imgLucifer.jpeg" alt="Sacrificio eterno" loading="lazy">
+                        </div>
+                        <h3>Sacrificio eterno</h3>
+                        <h4>En el acto de amor más grande de la existencia, eligió convertirse en obscuridad para que su hermano pudiera brillar.</h4>
+                        <div class="hidden-date" style="display: none;">2024/01/23 - 012</div>
+                        <div class="long-description" style="display: none;">En el principio de la creación, Dios formó dos poderosos arcángeles, Miguel y Lucifer, quienes eran amados por igual. Cuando llegó el momento de establecer el balance entre la luz y la oscuridad, Dios necesitaba un líder para las tinieblas, asegurando así la existencia del mal y el libre albedrío. Lucifer se ofreció voluntario, garantizando que el odio jamás tocara a su hermano Miguel. Asumió el papel del adversario, sabiendo que su destino sería ser derrotado una y otra vez por los ejércitos celestiales liderados por el ser que más amó. Con el paso de las eras, Lucifer se convirtió en el símbolo máximo del mal, enfrentando constantemente la luz y la justicia del cielo. Sin embargo, en su soledad y pesar, a veces sus lágrimas brotan de manera incontrolable. Estas lágrimas son testigos de un tormento eterno, preguntándose si su sufrimiento proviene de la añoranza del amor perdido o de la lamentación por la decisión que lo condenó. El Portador de la Luz, en su sacrificio, revela la paradoja del mal nacido del amor más puro.</div>
+                    </div>
+
+                    <!-- Continúa con el resto de tus imágenes siguiendo el mismo patrón -->
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="u-footer">
+        <div class="u-container">
+            © 2024 Alejandro Arauz "MrPretendo". Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content">
+            <div class="modal-info">
+                <h2 id="modal-title"></h2>
+                <p id="modal-description"></p>
+                <p id="modal-long-description"></p>
+                <small id="modal-date"></small>
+            </div>
+            <div class="modal-image-container">
+                <img id="modalImage" class="modal-image">
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
