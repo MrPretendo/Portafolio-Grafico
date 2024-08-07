@@ -17,6 +17,54 @@ window.addEventListener('scroll', function() {
     header.classList.toggle('scrolled', window.scrollY > 50);
 });
 
+// Función para cargar el toggle de modo oscuro
+function loadDarkModeToggle() {
+    fetch('darkmode.html')
+        .then(response => response.text())
+        .then(data => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(data, 'text/html');
+            const toggleContainer = doc.getElementById('theme-toggle-button');
+            
+            document.getElementById('dark-mode-toggle-container').appendChild(toggleContainer);
+            
+            // Inicializar la funcionalidad del modo oscuro después de cargar el toggle
+            initDarkMode();
+        })
+        .catch(error => console.error('Error loading dark mode toggle:', error));
+}
+
+// Llamar a la función cuando se carga el DOM
+document.addEventListener('DOMContentLoaded', loadDarkModeToggle);
+
+
+// Inicializar la funcionalidad de modo oscuro
+// Función para inicializar el modo oscuro (asegúrate de que esta función exista)
+function initDarkMode() {
+    const toggle = document.getElementById('toggle');
+    
+    // Comprobar si el modo oscuro está guardado en localStorage
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+        toggle.checked = true;
+    }
+
+    // Manejar el cambio de modo
+    toggle.addEventListener('change', function() {
+        if (this.checked) {
+            document.body.classList.add('dark-mode');
+            localStorage.setItem('darkMode', 'enabled');
+        } else {
+            document.body.classList.remove('dark-mode');
+            localStorage.setItem('darkMode', null);
+        }
+    });
+}
+
+// Call initDarkMode when the DOM is loaded
+document.addEventListener('DOMContentLoaded', initDarkMode);
+
+
 // Cargar datos de la galería
 fetch('gallery-data.json')
     .then(response => response.json())

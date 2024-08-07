@@ -1,5 +1,112 @@
 @import url('https://fonts.googleapis.com/css2?family=Aptos&display=swap');
 
+:root {
+    --bg-color: #f4f4f4;
+    --text-color: #333;
+    --header-bg: rgba(255, 255, 255, 0.9);
+    --card-bg: #fff;
+    --modal-bg: #fff;
+    --modal-info-bg: #f8f8f8;
+}
+
+.dark-mode {
+    --bg-color: #1a1a1a;
+    --text-color: #f4f4f4;
+    --header-bg: rgba(0, 0, 0, 0.9);
+    --card-bg: #2a2a2a;
+    --modal-bg: #2a2a2a;
+    --modal-info-bg: #1a1a1a;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.u-header {
+    background-color: var(--header-bg);
+}
+
+.u-gallery-item {
+    background-color: var(--card-bg);
+}
+
+.modal-content {
+    background-color: var(--modal-bg);
+}
+
+.modal-info {
+    background-color: var(--modal-info-bg);
+}
+
+/* Dark mode toggle styles */
+#theme-toggle-button {
+    font-size: 15px;
+    position: relative;
+    display: flex;
+    width: 3em;
+    cursor: pointer;
+}
+
+#toggle {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+#container,
+#patches,
+#stars,
+#button,
+#sun,
+#moon,
+#cloud {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.25s;
+}
+
+#toggle:checked + svg #container {
+    fill: #2b4360;
+}
+
+#toggle:checked + svg #button {
+    transform: translate(28px, 2.333px);
+}
+
+#sun {
+    opacity: 1;
+}
+
+#toggle:checked + svg #sun {
+    opacity: 0;
+}
+
+#moon {
+    opacity: 0;
+}
+
+#toggle:checked + svg #moon {
+    opacity: 1;
+}
+
+#cloud {
+    opacity: 1;
+}
+
+#toggle:checked + svg #cloud {
+    opacity: 0;
+}
+
+#stars {
+    opacity: 0;
+}
+
+#toggle:checked + svg #stars {
+    opacity: 1;
+}
+
 /* Reset y estilos base */
 * {
     margin: 0;
@@ -10,8 +117,6 @@
 body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
-    color: #333;
-    background-color: #f4f4f4;
 }
 
 .u-container {
@@ -23,7 +128,6 @@ body {
 
 /* Estilos del encabezado */
 .u-header {
-    background-color: rgba(255, 255, 255, 0.9);
     padding: 1rem 0;
     position: fixed;
     width: 100%;
@@ -43,7 +147,7 @@ body {
     font-size: 1.8rem;
     font-weight: bold;
     text-decoration: none;
-    color: #333;
+    color: var(--text-color);
     transition: color 0.3s ease;
 }
 
@@ -62,7 +166,7 @@ body {
 
 .u-nav a {
     text-decoration: none;
-    color: #333;
+    color: var(--text-color);
     font-weight: 500;
     transition: color 0.3s ease;
 }
@@ -127,7 +231,6 @@ main {
 /* Estilos de la sección de galería */
 .u-gallery {
     padding: 80px 0;
-    background-color: #fff;
     width: 100%;
 }
 
@@ -135,7 +238,7 @@ main {
     text-align: center;
     margin-bottom: 2rem;
     font-size: 2.5rem;
-    color: #333;
+    color: var(--text-color);
 }
 
 .gallery-controls {
@@ -149,8 +252,9 @@ main {
     margin: 0 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #fff;
+    background-color: var(--card-bg);
     font-size: 1rem;
+    color: var(--text-color);
 }
 
 .u-gallery-grid {
@@ -160,7 +264,6 @@ main {
 }
 
 .u-gallery-item {
-    background-color: #fff;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     overflow: hidden;
@@ -200,7 +303,7 @@ main {
     text-align: center;
     font-size: 1rem;
     font-weight: normal;
-    color: #666;
+    color: var(--text-color);
 }
 
 /* Estilos del modal */
@@ -225,7 +328,6 @@ main {
     height: 90%;
     display: flex;
     flex-direction: row-reverse;
-    background-color: #fff;
     border-radius: 10px;
     overflow: hidden;
 }
@@ -233,7 +335,6 @@ main {
 .modal-info {
     width: 30%;
     padding: 20px;
-    background-color: #f8f8f8;
     overflow-y: auto;
 }
 
@@ -295,25 +396,83 @@ main {
 
 /* Estilos del pie de página */
 .u-footer {
-    background-color: #333;
-    color: #fff;
+    background-color: var(--header-bg);
+    color: var(--text-color);
     text-align: center;
     padding: 20px 0;
     width: 100%;
 }
 
+/* ... (estilos anteriores) ... */
+
 /* Estilos responsivos */
-@media (max-width: 768px) {
+@media (max-width: 714px) {
+    .u-container {
+        width: 95%;
+        padding: 0 10px;
+    }
+
+    .u-header .u-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .u-nav {
+        margin-top: 1rem;
+    }
+
+    .u-nav li {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    .u-hero h1 {
+        font-size: 3rem;
+    }
+
+    .u-hero p {
+        font-size: 1.2rem;
+    }
+
+    .u-cta-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .u-gallery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
     .modal-content {
         flex-direction: column-reverse;
+        width: 95%;
+        height: 95%;
     }
+
     .modal-info, .modal-image-container {
         width: 100%;
     }
+
     .modal-image-container {
-        height: 60%;
+        height: 50%;
     }
+
     .modal-info {
-        height: 40%;
+        height: 50%;
+        overflow-y: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .u-hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .u-hero p {
+        font-size: 1rem;
+    }
+
+    .u-gallery-grid {
+        grid-template-columns: 1fr;
     }
 }
