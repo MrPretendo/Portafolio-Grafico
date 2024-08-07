@@ -128,7 +128,10 @@ function populateProjectSelect() {
     const projects = [...new Set(galleryData.map(img => img.project))].sort();
     projectSelect.innerHTML = '<option value="all">Todos los proyectos</option>';
     projects.forEach(project => {
-        projectSelect.innerHTML += `<option value="${project}">${project}</option>`;
+        const option = document.createElement('option');
+        option.value = project;
+        option.textContent = project;
+        projectSelect.appendChild(option);
     });
 }
 
