@@ -87,7 +87,8 @@ function setupMenuButton() {
     const menuButton = document.getElementById('menu-button');
     const dropdownMenu = document.getElementById('dropdown-menu');
 
-    menuButton.addEventListener('click', function() {
+    menuButton.addEventListener('click', function(event) {
+        event.stopPropagation();
         if (dropdownMenu.style.display === 'block') {
             dropdownMenu.style.display = 'none';
             menuButton.classList.remove('menu-open');
@@ -97,16 +98,21 @@ function setupMenuButton() {
         }
     });
 
+    document.addEventListener('click', function(event) {
+        if (!menuButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+            dropdownMenu.style.display = 'none';
+            menuButton.classList.remove('menu-open');
+        }
+    });
+
     document.querySelectorAll('.dropdown-item').forEach(item => {
         item.addEventListener('click', function(e) {
             const section = e.target.getAttribute('data-section');
             dropdownMenu.style.display = 'none'; // Cerrar el menú al seleccionar una opción
+            menuButton.classList.remove('menu-open');
             if (section) {
                 e.preventDefault();
                 document.getElementById('gallery-link').click();
-            }else if (!menuButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                dropdownMenu.style.display = 'none';
-                menuButton.classList.remove('menu-open');
             }
         });
     });
