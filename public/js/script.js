@@ -57,6 +57,7 @@ function handlePageTransition() {
     const menuAboutLink = document.getElementById('menu-about-link');
     const heroGalleryLink = document.querySelector('.u-hero .u-cta-container .u-cta-button#gallery-link');
     const heroAboutLink = document.querySelector('.u-hero .u-cta-container .u-cta-button#about-link');
+    const heroStoryLink = document.querySelector('.u-hero .u-cta-container .u-cta-button#story-link');
 
     const showSection = function(e, section) {
         if (e) e.preventDefault();
