@@ -2,7 +2,7 @@
 
 Crystal y Leecard se encontraban en el suntuoso salón de banquetes del castillo, disfrutando de una cena exquisita mientras la tensión se palpaba en el aire. Leecard, con su porte distinguido, comenzó a relatar la historia de Vincent y los acontecimientos que llevaron a su captura.
 
-![Crystal y Leecard cenando](media/imagen1.jpeg)
+
 
 "[...] que sus huesos son indestructibles: Cuando intentaron atravesar su corazón con una espada, las hojas no pudieron penetrar sus costillas. Aunque sangraba y sufría dolor, sus huesos impidieron cualquier herida mortal."
 

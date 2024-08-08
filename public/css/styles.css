@@ -166,6 +166,10 @@ main {
     background-color: #0056b3;
     transform: translateY(-0.3rem);
 }
+/* Ocultar el botón "Sobre mí" */
+#about-link {
+    display: none;
+}
 
 /* Gallery Section */
 .u-gallery {

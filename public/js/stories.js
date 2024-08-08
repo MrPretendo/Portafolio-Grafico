@@ -1,5 +1,5 @@
 // Cargar la estructura de historias
-fetch('/public/stories/data/stories.json')
+fetch('stories.json')
   .then(response => response.json())
   .then(data => {
     createMenu(data.projects);
@@ -14,9 +14,13 @@ function createMenu(projects) {
   projects.forEach(project => {
     const projectItem = document.createElement('div');
     projectItem.className = 'project-item';
+    
+    // Usar la ruta de la imagen directamente del JSON sin modificaciones
+    const coverPath = typeof project.cover === 'string' ? project.cover : '/img/covers/default-cover.jpg';
+    
     projectItem.innerHTML = `
       <div class="project-cover">
-        <img src="../${project.cover}" alt="${project.title} cover">
+        <img src="${coverPath}" alt="${project.title} cover">
         <h3>${project.title}</h3>
       </div>
       <ul class="chapter-list" style="display: none;">

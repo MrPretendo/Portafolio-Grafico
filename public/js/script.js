@@ -1,382 +1,173 @@
-// Variables globales
-let galleryData = [];
-const galleryGrid = document.getElementById('gallery-grid');
-const sortSelect = document.getElementById('sort-select');
-const projectSelect = document.getElementById('project-select');
-const modal = document.getElementById('imageModal');
-const modalImg = document.getElementById('modalImage');
-const modalTitle = document.getElementById('modal-title');
-const modalDescription = document.getElementById('modal-description');
-const modalLongDescription = document.getElementById('modal-long-description');
-const modalDate = document.getElementById('modal-date');
-const sections = {
-    home: document.getElementById('home'),
-    gallery: document.getElementById('gallery'),
-    about: document.getElementById('about')
-};
-let aboutContent = '';
-
-// Función principal de inicialización
-function initializeApp() {
-    handlePageTransition();
-    loadGalleryData();
-    addEventListeners();
+// Función para manejar rutas de archivos
+function getAssetPath(path) {
+    // Eliminar '/public' si está presente al principio de la ruta
+    path = path.replace(/^\/public/, '');
+    
+    // Si la ruta no comienza con '/', añadirlo
+    if (!path.startsWith('/')) {
+        path = '/' + path;
+    }
+    
+    return path;
 }
 
-// Inicializar la funcionalidad de modo oscuro
-function initDarkMode() {
-    const toggleContainer = document.getElementById('dark-mode-toggle-container');
-    const toggle = document.getElementById('toggle');
-    
-    if (toggleContainer && toggle) {
-        if (localStorage.getItem('darkMode') === 'enabled') {
-            document.body.classList.add('dark-mode');
-            toggle.checked = true;
-        }
+// Cargar la estructura de historias
+fetch('stories.json')
+  .then(response => response.json())
+  .then(data => {
+    createMenu(data.projects);
+  })
+  .catch(error => {
+    console.error('Error loading stories data:', error);
+    document.getElementById('stories-menu').innerHTML = '<p>Error loading stories. Please try again later.</p>';
+  });
 
-        toggleContainer.addEventListener('click', function() {
-            toggle.checked = !toggle.checked;
-            if (toggle.checked) {
-                document.body.classList.add('dark-mode');
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                document.body.classList.remove('dark-mode');
-                localStorage.setItem('darkMode', null);
-            }
-        });
+function createMenu(projects) {
+  const menu = document.getElementById('stories-menu');
+  projects.forEach(project => {
+    const projectItem = document.createElement('div');
+    projectItem.className = 'project-item';
+    
+    // Usar la función getAssetPath para manejar la ruta de la imagen
+    const coverPath = getAssetPath(project.cover);
+    
+    projectItem.innerHTML = `
+      <div class="project-cover">
+        <img src="${coverPath}" alt="${project.title} cover">
+        <h3>${project.title}</h3>
+      </div>
+      <ul class="chapter-list" style="display: none;">
+        ${project.chapters.map(chapter => `
+          <li data-project="${project.id}" data-project-path="${project.projectPath}" data-file="${chapter.file}">${chapter.title}</li>
+        `).join('')}
+      </ul>
+    `;
+    menu.appendChild(projectItem);
+
+    projectItem.querySelector('.project-cover').addEventListener('click', () => {
+      const chapterList = projectItem.querySelector('.chapter-list');
+      chapterList.style.display = chapterList.style.display === 'none' ? 'block' : 'none';
+    });
+  });
+
+  menu.addEventListener('click', event => {
+    if (event.target.tagName === 'LI') {
+      const projectId = event.target.dataset.project;
+      const projectPath = event.target.dataset.projectPath;
+      const file = event.target.dataset.file;
+      loadChapter(projectId, projectPath, file);
+      // Highlight the selected chapter
+      menu.querySelectorAll('li').forEach(li => li.classList.remove('selected'));
+      event.target.classList.add('selected');
+    }
+  });
+}
+
+function loadChapter(projectId, projectPath, file) {
+  const chapterPath = getAssetPath(`${projectPath}${file}`);
+  console.log('Attempting to load:', chapterPath);
+  fetch(chapterPath)
+    .then(response => {
+      console.log('Response status:', response.status);
+      if (!response.ok) {
+        throw new Error('Chapter not found');
+      }
+      return response.text();
+    })
+    .then(markdown => {
+      console.log('Markdown loaded, length:', markdown.length);
+      const html = marked.parse(markdown);
+      document.getElementById('story-content').innerHTML = html;
+      // Scroll to the top of the content
+      document.getElementById('story-content').scrollTop = 0;
+      // Save the last read chapter
+      saveLastReadChapter(projectId, projectPath, file);
+    })
+    .catch(error => {
+      console.error('Error loading chapter:', error);
+      document.getElementById('story-content').innerHTML = '<p>Error loading chapter. Please try again later.</p>';
+    });
+}
+
+// Función para manejar las imágenes en el contenido Markdown
+marked.use({
+  renderer: {
+    image(href, title, text) {
+      return `<img src="${getAssetPath(href)}" alt="${text}" title="${title || ''}" loading="lazy">`;
+    }
+  }
+});
+
+// Función para guardar el último capítulo leído
+function saveLastReadChapter(projectId, projectPath, file) {
+  localStorage.setItem('lastRead', JSON.stringify({ projectId, projectPath, file }));
+}
+
+// Función para cargar el último capítulo leído
+function loadLastReadChapter() {
+  const lastRead = JSON.parse(localStorage.getItem('lastRead'));
+  if (lastRead) {
+    const chapterElement = document.querySelector(`li[data-project="${lastRead.projectId}"][data-project-path="${lastRead.projectPath}"][data-file="${lastRead.file}"]`);
+    if (chapterElement) {
+      chapterElement.click();
+    }
+  }
+}
+
+// Llamar a loadLastReadChapter después de crear el menú
+document.addEventListener('DOMContentLoaded', () => {
+  // El menú se crea cuando se carga el JSON, así que esperamos un poco
+  setTimeout(loadLastReadChapter, 500);
+});
+
+// Manejar la navegación entre capítulos
+function setupChapterNavigation() {
+  const prevButton = document.getElementById('prev-chapter');
+  const nextButton = document.getElementById('next-chapter');
+
+  if (prevButton && nextButton) {
+    prevButton.addEventListener('click', () => navigateChapter('prev'));
+    nextButton.addEventListener('click', () => navigateChapter('next'));
+  }
+}
+
+function navigateChapter(direction) {
+  const currentChapter = document.querySelector('.chapter-list li.selected');
+  if (currentChapter) {
+    const chapters = Array.from(currentChapter.parentNode.children);
+    const currentIndex = chapters.indexOf(currentChapter);
+    let newIndex;
+
+    if (direction === 'prev') {
+      newIndex = currentIndex > 0 ? currentIndex - 1 : chapters.length - 1;
     } else {
-        console.error('Dark mode toggle elements not found');
+      newIndex = currentIndex < chapters.length - 1 ? currentIndex + 1 : 0;
     }
+
+    chapters[newIndex].click();
+  }
 }
 
-// Manejar la transición entre secciones
-function handlePageTransition() {
-    const homeLink = document.querySelector('.u-logo');
-    const galleryLink = document.getElementById('gallery-link');
-    const aboutLink = document.getElementById('about-link');
-    const menuAboutLink = document.getElementById('menu-about-link');
-    const heroGalleryLink = document.querySelector('.u-hero .u-cta-container .u-cta-button#gallery-link');
-    const heroStoryLink = document.querySelector('.u-hero .u-cta-container .u-cta-button#stories-link');
-    const menuStoryLink = document.querySelector('.dropdown-item[href="stories.html"]');
-
-
-    const showSection = function(e, section) {
-        if (e) e.preventDefault();
-        Object.values(sections).forEach(sec => {
-            if (sec) {
-                sec.style.display = 'none';
-                sec.classList.remove('active-section');
-            }
-        });
-        if (section) {
-            section.style.display = 'block';
-            section.classList.add('active-section');
-            section.classList.add('fade-in');
-            setTimeout(() => {
-                section.classList.remove('fade-in');
-            }, 500);
-        }
-
-        // Asegurarse de que la sección de inicio siempre mantenga su estilo centrado
-        if (sections.home) {
-            sections.home.style.display = section === sections.home ? 'flex' : 'none';
-            sections.home.style.alignItems = 'center';
-            sections.home.style.justifyContent = 'center';
-            sections.home.style.minHeight = '100vh';
-        }
-    };
-
-    if (galleryLink) galleryLink.addEventListener('click', (e) => showSection(e, sections.gallery));
-    if (heroGalleryLink) heroGalleryLink.addEventListener('click', (e) => showSection(e, sections.gallery));
-    if (aboutLink) aboutLink.addEventListener('click', (e) => {
-        loadAboutContent().then(() => showSection(e, sections.about));
-    });
-    if (menuAboutLink) menuAboutLink.addEventListener('click', (e) => {
-        loadAboutContent().then(() => showSection(e, sections.about));
-    });
-    if (homeLink) homeLink.addEventListener('click', function(e) {
-        e.preventDefault();
-        showSection(e, sections.home);
+// Función para manejar el cambio de tema (claro/oscuro)
+function setupThemeToggle() {
+  const themeToggle = document.getElementById('theme-toggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('change', () => {
+      document.body.classList.toggle('dark-theme');
+      localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
     });
 
-    // Manejar la redirección a stories.html
-    if (heroStoryLink) {
-        heroStoryLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.location.href = '/public/stories.html';
-        });
+    // Aplicar el tema guardado al cargar la página
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark-theme');
+      themeToggle.checked = true;
     }
-    if (menuStoryLink) {
-        menuStoryLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.location.href = '/public/stories.html';
-        });
-    }
+  }
 }
 
-// Configurar el botón del menú
-function setupMenuButton() {
-    const menuButton = document.getElementById('menu-button');
-    const dropdownMenu = document.getElementById('dropdown-menu');
-
-    if (!menuButton || !dropdownMenu) {
-        console.error('Menu button or dropdown menu not found');
-        return;
-    }
-
-    menuButton.addEventListener('click', function(event) {
-        event.stopPropagation();
-        if (dropdownMenu.style.display === 'block') {
-            dropdownMenu.style.display = 'none';
-            menuButton.classList.remove('menu-open');
-        } else {
-            dropdownMenu.style.display = 'block';
-            menuButton.classList.add('menu-open');
-        }
-    });
-
-    document.addEventListener('click', function(event) {
-        if (!menuButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
-            dropdownMenu.style.display = 'none';
-            menuButton.classList.remove('menu-open');
-        }
-    });
-
-    document.querySelectorAll('.dropdown-item').forEach(item => {
-        item.addEventListener('click', function(e) {
-            const section = e.target.getAttribute('data-section');
-            dropdownMenu.style.display = 'none';
-            menuButton.classList.remove('menu-open');
-            if (section === 'gallery') {
-                document.getElementById('gallery-link').click();
-            } else if (section === 'about') {
-                document.getElementById('about-link').click();
-            }
-        });
-    });
-
-    const galleryMenuItem = document.querySelector('.dropdown-item[data-section="gallery"]');
-    if (galleryMenuItem) {
-        galleryMenuItem.addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('gallery-link').click();
-        });
-    }
-}
-
-// Cargar datos de la galería
-function loadGalleryData() {
-    console.log('Intentando cargar datos de la galería...');
-    fetch('./gallery-data.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Datos cargados:', data);
-            galleryData = data.images;
-            populateProjectSelect();
-            renderGallery(galleryData);
-        })
-        .catch(error => {
-            console.error('Error loading gallery data:', error);
-            if (galleryGrid) {
-                galleryGrid.innerHTML = '<p>Error al cargar los datos de la galería. Por favor, verifica la ruta del archivo JSON y vuelve a intentarlo.</p>';
-            }
-        });
-}
-
-// Poblar el select de proyectos
-function populateProjectSelect() {
-    if (!projectSelect) {
-        console.error('Project select element not found');
-        return;
-    }
-    const projects = [...new Set(galleryData.map(img => img.project))].sort();
-    projectSelect.innerHTML = '<option value="all">Todos los proyectos</option>';
-    projects.forEach(project => {
-        const option = document.createElement('option');
-        option.value = project;
-        option.textContent = project;
-        projectSelect.appendChild(option);
-    });
-}
-
-// Renderizar la galería
-function renderGallery(images) {
-    if (!galleryGrid) {
-        console.error('Gallery grid element not found');
-        return;
-    }
-    console.log('Renderizando galería con', images.length, 'imágenes');
-    galleryGrid.innerHTML = '';
-    images.forEach(image => {
-        const galleryItem = document.createElement('div');
-        galleryItem.className = 'u-gallery-item';
-        galleryItem.innerHTML = `
-            <div class="image-container">
-                <img src="${image.thumbnail}" data-full-img="${image.fullImage}" alt="${image.title}" loading="lazy">
-            </div>
-            <h3>${image.title}</h3>
-            <h4>${image.description}</h4>
-        `;
-        galleryGrid.appendChild(galleryItem);
-    });
-    addImageClickListeners();
-}
-
-// Agregar event listeners a las imágenes
-function addImageClickListeners() {
-    document.querySelectorAll('.image-container img').forEach(img => {
-        img.onclick = function() {
-            const image = galleryData.find(item => item.fullImage === this.getAttribute('data-full-img'));
-            openModal(image);
-        }
-    });
-}
-
-// Ordenar y filtrar imágenes
-function sortImages() {
-    if (!sortSelect || !projectSelect) {
-        console.error('Sort or project select elements not found');
-        return;
-    }
-    const sortBy = sortSelect.value;
-    const projectFilter = projectSelect.value;
-    
-    let sortedImages = [...galleryData];
-    
-    if (projectFilter !== 'all') {
-        sortedImages = sortedImages.filter(img => img.project === projectFilter);
-    }
-    
-    switch(sortBy) {
-        case 'default':
-            sortedImages.sort((a, b) => a.id - b.id);
-            break;
-        case 'dateAsc':
-            sortedImages.sort((a, b) => new Date(a.date) - new Date(b.date));
-            break;
-        case 'dateDesc':
-            sortedImages.sort((a, b) => new Date(b.date) - new Date(a.date));
-            break;
-        case 'project':
-            sortedImages.sort((a, b) => a.project.localeCompare(b.project));
-            break;
-    }
-    
-    renderGallery(sortedImages);
-}
-
-// Abrir modal
-function openModal(image) {
-    if (!modal || !modalImg || !modalTitle || !modalDescription || !modalLongDescription || !modalDate) {
-        console.error('Modal elements not found');
-        return;
-    }
-    modal.style.display = "block";
-    modalImg.src = image.fullImage;
-    modalImg.onload = resizeImage;
-    modalTitle.textContent = image.title;
-    modalDescription.textContent = image.description;
-    modalLongDescription.innerHTML = image.longDescription.replace(/\n/g, '<br>');
-    modalDate.textContent = `${image.date} - ${image.project}`;
-}
-
-// Redimensionar imagen en el modal
-function resizeImage() {
-    if (!modalImg) return;
-    const containerWidth = modalImg.parentElement.offsetWidth;
-    const containerHeight = modalImg.parentElement.offsetHeight;
-    const imgRatio = modalImg.naturalWidth / modalImg.naturalHeight;
-    const containerRatio = containerWidth / containerHeight;
-
-    if (imgRatio > containerRatio) {
-        modalImg.style.width = '100%';
-        modalImg.style.height = 'auto';
-    } else {
-        modalImg.style.height = '100%';
-        modalImg.style.width = 'auto';
-    }
-}
-
-// Agregar event listeners
-function addEventListeners() {
-    window.addEventListener('scroll', function() {
-        const header = document.querySelector('.u-header');
-        if (header) header.classList.toggle('scrolled', window.scrollY > 50);
-    });
-
-    const closeBtn = document.querySelector('.close');
-    if (closeBtn && modal) {
-        closeBtn.onclick = function() {
-            modal.style.display = "none";
-        }
-    }
-
-    if (modal) {
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    }
-
-    window.addEventListener('resize', resizeImage);
-
-    if (sortSelect && projectSelect) {
-        sortSelect.addEventListener('change', sortImages);
-        projectSelect.addEventListener('change', sortImages);
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetElement = document.querySelector(this.getAttribute('href'));
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-}
-
-function loadAboutStyles() {
-    if (!document.getElementById('about-styles')) {
-        const link = document.createElement('link');
-        link.id = 'about-styles';
-        link.rel = 'stylesheet';
-        link.href = 'css/about.css';
-        document.head.appendChild(link);
-    }
-}
-
-function loadAboutContent() {
-    if (aboutContent) {
-        return Promise.resolve();
-    }
-    
-    return fetch('about.html')
-        .then(response => response.text())
-        .then(html => {
-            const aboutSection = document.getElementById('about');
-            if (aboutSection) {
-                aboutSection.innerHTML = html;
-                aboutContent = html;
-                loadAboutStyles();
-            } else {
-                console.error('About section not found');
-            }
-        })
-        .catch(error => console.error('Error loading about content:', error));
-}
-
-// Inicializar la aplicación cuando se carga el DOM
-document.addEventListener('DOMContentLoaded', function() {
-    initializeApp();
-    setupMenuButton();
-    initDarkMode();
+// Inicialización
+document.addEventListener('DOMContentLoaded', () => {
+  setupChapterNavigation();
+  setupThemeToggle();
 });
