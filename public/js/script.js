@@ -59,7 +59,6 @@ function handlePageTransition() {
     const heroStoryLink = document.querySelector('.u-hero .u-cta-container .u-cta-button#stories-link');
     const menuStoryLink = document.querySelector('.dropdown-item[href="stories.html"]');
 
-
     const showSection = function(e, section) {
         if (e) e.preventDefault();
         Object.values(sections).forEach(sec => {
@@ -88,11 +87,10 @@ function handlePageTransition() {
 
     if (galleryLink) galleryLink.addEventListener('click', (e) => showSection(e, sections.gallery));
     if (heroGalleryLink) heroGalleryLink.addEventListener('click', (e) => showSection(e, sections.gallery));
-    if (aboutLink) aboutLink.addEventListener('click', (e) => {
-        loadAboutContent().then(() => showSection(e, sections.about));
-    });
+    if (aboutLink) aboutLink.addEventListener('click', (e) => loadAboutContent());
     if (menuAboutLink) menuAboutLink.addEventListener('click', (e) => {
-        loadAboutContent().then(() => showSection(e, sections.about));
+        e.preventDefault();
+        loadAboutContent();
     });
     if (homeLink) homeLink.addEventListener('click', function(e) {
         e.preventDefault();
@@ -103,13 +101,13 @@ function handlePageTransition() {
     if (heroStoryLink) {
         heroStoryLink.addEventListener('click', (e) => {
             e.preventDefault();
-            window.location.href = '/public/stories.html';
+            window.location.href = 'stories.html';
         });
     }
     if (menuStoryLink) {
         menuStoryLink.addEventListener('click', (e) => {
             e.preventDefault();
-            window.location.href = '/public/stories.html';
+            window.location.href = 'stories.html';
         });
     }
 }
@@ -150,7 +148,7 @@ function setupMenuButton() {
             if (section === 'gallery') {
                 document.getElementById('gallery-link').click();
             } else if (section === 'about') {
-                document.getElementById('about-link').click();
+                loadAboutContent();
             }
         });
     });
@@ -302,6 +300,64 @@ function resizeImage() {
     }
 }
 
+// Cargar contenido de About
+function loadAboutContent() {
+    if (aboutContent) {
+        showAboutContent();
+        return;
+    }
+    
+    fetch('about.html')
+        .then(response => response.text())
+        .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const aboutContentElement = doc.querySelector('.about-content');
+            if (aboutContentElement) {
+                // Crear la estructura necesaria para el contenido
+                const aboutSection = document.createElement('div');
+                aboutSection.className = 'about-content';
+                
+                // Agregar el contenido al nuevo contenedor
+                aboutSection.innerHTML = aboutContentElement.innerHTML;
+                
+                // Actualizar el contenido global
+                aboutContent = aboutSection.outerHTML;
+                
+                showAboutContent();
+            } else {
+                console.error('No se encontró el elemento .about-content en about.html');
+                sections.about.innerHTML = '<p>Error al cargar el contenido. Por favor, intenta de nuevo más tarde.</p>';
+                showAboutContent();
+            }
+        })
+        .catch(error => {
+            console.error('Error loading about content:', error);
+            sections.about.innerHTML = '<p>Error al cargar el contenido. Por favor, intenta de nuevo más tarde.</p>';
+            showAboutContent();
+        });
+}
+
+// Mostrar contenido de About
+function showAboutContent() {
+    if (sections.about) {
+        sections.about.innerHTML = aboutContent;
+        Object.values(sections).forEach(section => {
+            section.style.display = section === sections.about ? 'flex' : 'none';
+        });
+        if (sections.about.style.display === 'flex') {
+            sections.about.style.alignItems = 'center';
+            sections.about.style.justifyContent = 'center';
+        }
+        sections.about.classList.add('fade-in');
+        setTimeout(() => {
+            sections.about.classList.remove('fade-in');
+        }, 500);
+    } else {
+        console.error('About section not found');
+    }
+}
+
 // Agregar event listeners
 function addEventListeners() {
     window.addEventListener('scroll', function() {
@@ -342,36 +398,6 @@ function addEventListeners() {
             }
         });
     });
-}
-
-function loadAboutStyles() {
-    if (!document.getElementById('about-styles')) {
-        const link = document.createElement('link');
-        link.id = 'about-styles';
-        link.rel = 'stylesheet';
-        link.href = 'css/about.css';
-        document.head.appendChild(link);
-    }
-}
-
-function loadAboutContent() {
-    if (aboutContent) {
-        return Promise.resolve();
-    }
-    
-    return fetch('about.html')
-        .then(response => response.text())
-        .then(html => {
-            const aboutSection = document.getElementById('about');
-            if (aboutSection) {
-                aboutSection.innerHTML = html;
-                aboutContent = html;
-                loadAboutStyles();
-            } else {
-                console.error('About section not found');
-            }
-        })
-        .catch(error => console.error('Error loading about content:', error));
 }
 
 // Inicializar la aplicación cuando se carga el DOM
